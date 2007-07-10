@@ -1,0 +1,14 @@
+BIM >> BIM - Box Integration Method Package for Octave
+Assembly functions
+  BIM2Aadvdiff
+  BIM2Areaction
+  BIM2Arhs
+Computation functions
+  BIM2Cmeshproperties
+  BIM2Cunknowncoord
+  BIM2Cunknownsonside
+  BIM2Cpdegrad
+  BIM2Cglobalflux
+Utilities
+	BIMUbern
+	BIMUlogm

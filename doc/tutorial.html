@@ -1,0 +1,123 @@
+<!Doctype html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<body>
+
+<p>
+This is a short example on how to use <tt>BIM</tt> to solve a DAR problem.<br>
+The data for this example can be found in the directory <tt>BIM/examples/FIUME</tt>
+</p>
+
+<b> Create the mesh and precompute the mesh properties </b><br>
+
+The geometry of the domain was created using gmsh and is stored in the file <tt>fiume.geo</tt>
+
+<p><pre>
+[mesh] = MSH2Mgmsh('fiume',1,.1);
+[mesh] = BIM2Cmeshproperties(mesh);
+</pre></p>
+
+<b> Construct an initial guess</b><br>
+
+For a linear problem only the values at internal nodes are actually relevant<br>
+
+<p><pre>
+[xu, yu] = BIM2Cunknowncoord(mesh);
+nelem = size(mesh.t,2);
+nnodi = size(mesh.p,2);
+uin   = 3*xu;
+</pre></p>
+
+<b> set the coefficients for the problem:
+ -div ( \alpha \gamma ( \eta \nabla u - \beta u ) )+ \delta \zeta u = f g</b><br>
+
+<p><pre>
+epsilon = .1;
+alfa    = ones(nelem,1);
+gamma   = ones(nnodi,1);
+eta     = epsilon*ones(nnodi,1);
+beta    = xu+yu;
+delta   = ones(nelem,1);
+zeta    = ones(nnodi,1);
+f       = ones(nnodi,1);
+g       = ones(nelem,1);
+</pre></p>
+
+<b> Construct the discretized operators</b><br>
+<pre>
+AdvDiff = BIM2Aadvdiff(mesh,alfa,gamma,eta,beta);
+Mass    = BIM2Areaction(mesh,delta,zeta);
+b       = BIM2Arhs(mesh,f,g);
+A       = AdvDiff + Mass;
+</pre></p>
+
+
+
+
+<B> To Apply Boundary Conditions, partition LHS and RHS</b><br>
+
+The tags of the sides are assigned by gmsh
+
+<p><pre>
+Dlist = BIM2Cunknownsonside(mesh, [8 18]); 	   ## DIRICHLET NODES LIST
+Nlist = BIM2Cunknownsonside(mesh, [23 24]); 	   ## NEUMANN NODES LIST
+Nlist = setdiff(Nlist,Dlist);
+Fn    = zeros(length(Nlist),1);           	   ## PRESCRIBED NEUMANN FLUXES
+Ilist = setdiff(1:length(uin),union(Dlist,Nlist)); ## INTERNAL NODES LIST
+</pre></p>
+
+
+<p><pre>
+Add = A(Dlist,Dlist);
+Adn = A(Dlist,Nlist); ## shoud be all zeros hopefully!!
+Adi = A(Dlist,Ilist); 
+
+And = A(Nlist,Dlist); ## shoud be all zeros hopefully!!
+Ann = A(Nlist,Nlist);
+Ani = A(Nlist,Ilist); 
+
+Aid = A(Ilist,Dlist);
+Ain = A(Ilist,Nlist); 
+Aii = A(Ilist,Ilist); 
+
+bd = b(Dlist);
+bn = b(Nlist); 
+bi = b(Ilist); 
+
+ud = uin(Dlist);
+un = uin(Nlist); 
+ui = uin(Ilist); 
+</pre></p>
+
+<B> Solve for the displacements</B><BR>
+<p><pre>
+temp = [Ann Ani ; Ain Aii ] \ [ Fn+bn-And*ud ; bi-Aid*ud];
+un   = temp(1:length(un));
+ui   = temp(length(un)+1:end);
+</pre></p>
+
+<b> Compute the fluxes through Dirichlet sides</b><br>
+<p><pre>
+Fd = Add * ud + Adi * ui + Adn*un - bd;
+</pre></p>
+
+
+<B> Compute the gradient of the solution </B><BR>
+<p><pre>
+[gx, gy] = BIM2Cpdegrad(mesh,u);
+</pre></p>
+
+<B> Compute the internal Advection-Diffusion flux</B><BR>
+<p><pre>
+[jxglob,jyglob] = BIM2Cglobalflux(mesh,u,alfa,gamma,eta,beta);
+</pre></p>
+
+<B> Visulaization</B><BR>
+<p><pre>
+FPL2pdesurf(mesh,u);
+FPL2quiver(mesh,jxglob,jyglob,"sample_density","1000");
+FPL2quiver(mesh,gx,gy,"sample_density","1000");
+</pre></p>
+
+</body>
+</html>
