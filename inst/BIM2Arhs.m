@@ -16,8 +16,8 @@ function b = BIM2Arhs(mesh,f,g)
   ## Input:
   ## @itemize @minus
   ## @item @var{mesh}: PDEtool-like mesh with required field "p", "e", "t".
-  ## @item @var{f}: element-wise constant scalar function.
-  ## @item @var{g}: piecewise linear conforming scalar function.
+  ## @item @var{g}: element-wise constant scalar function.
+  ## @item @var{f}: piecewise linear conforming scalar function.
   ## @end itemize 
   ##
   ## @seealso{BIM2Areaction, BIM2Aadvdiff, BIM2Cmeshproperties}

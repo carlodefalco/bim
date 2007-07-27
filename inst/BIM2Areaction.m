@@ -1,7 +1,7 @@
 function [C] = BIM2Areaction(mesh,delta,zeta)
 
   ## -*- texinfo -*-
-  ## @deftypefn {Function File} {[@var{C}]} = BIM2Aadvdiff(@var{mesh}, @var{delta}, @var{zeta})
+  ## @deftypefn {Function File} {[@var{C}]} = BIM2Areaction(@var{mesh}, @var{delta}, @var{zeta})
   ##
   ## Builds the matrix for the discretization of the LHS
   ## of the equation:
@@ -11,17 +11,17 @@ function [C] = BIM2Areaction(mesh,delta,zeta)
   ## @end tex 
   ## @end iftex 
   ## @ifinfo
-  ## @var{delta} * @var{zeta} u = f
+  ## @var{delta} * @var{zeta} * u = f
   ## @end ifinfo
   ## 
   ## Input:
   ## @itemize @minus
-  ## @item @var{mesh}: PDEtool-like mesh with required field "p", "e", "t".
+  ## @item @var{mesh}: PDEtool-like mesh structure with required fields "p", "e", "t".
   ## @item @var{delta}: element-wise constant scalar function.
   ## @item @var{zeta}: piecewise linear conforming scalar function.
   ## @end itemize 
   ##
-	## @seealso{BIM2Arhs, BIM2Aadvdiff, BIM2Cmeshproperties}
+  ## @seealso{BIM2Arhs, BIM2Aadvdiff, BIM2Cmeshproperties}
   ## @end deftypefn
 
   ## This file is part of 

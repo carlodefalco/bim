@@ -3,7 +3,7 @@ function [nodelist] = BIM2Cunknownsonside(mesh, sidelist)
   ## -*- texinfo -*-
   ## @deftypefn {Function File} {[@var{nodelist}]} = BIM2Cunknownsonside(@var{mesh},@var{sidelist})
   ##
-  ## Return the list of the mesh nodes that lie on the specified geometrical sides.
+  ## Returns the list of the mesh nodes that lie on the specified geometrical sides.
   ##
   ## Input:
   ## @itemize @minus
