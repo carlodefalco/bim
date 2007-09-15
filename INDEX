@@ -3,6 +3,7 @@ Assembly functions
   BIM2Aadvdiff
   BIM2Areaction
   BIM2Arhs
+  BIM2Aboundarymass
 Computation functions
   BIM2Cmeshproperties
   BIM2Cunknowncoord
