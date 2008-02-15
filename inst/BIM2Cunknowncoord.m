@@ -38,19 +38,18 @@ function [x,y] = BIM2Cunknowncoord(mesh)
   ##   along with BIM; If not, see <http://www.gnu.org/licenses/>.
   ##
   ##
-  ##   MAIN AUTHOR:
+  ##   MAIN AUTHORS:
   ##   Culpo Massimiliano
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
   ##   D-42119 Wuppertal, Germany
   ##
-  ##   VERY USEFUL TEACHINGS IN PROGRAMMING AND CLEANING THE CODE:
   ##   Carlo de Falco
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
   ##   D-42119 Wuppertal, Germany
-
-	x = mesh.p(1,:)';
-	y = mesh.p(2,:)';
+  
+  x = mesh.p(1,:)';
+  y = mesh.p(2,:)';

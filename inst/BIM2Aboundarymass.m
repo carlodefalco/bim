@@ -43,7 +43,6 @@ function [M] = BIM2Aboundarymass(mesh, sidelist, nodelist)
   ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
   ##   D-42119 Wuppertal, Germany
   ##
-  ##   HELP IN REORDERING AND CLEANING THE CODE:
   ##   Culpo Massimiliano
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften

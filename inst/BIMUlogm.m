@@ -1,8 +1,6 @@
 function [T] = BIMUlogm(t1,t2)
 
-
   ## -*- texinfo -*-
-  ##
   ## @deftypefn {Function File} @
   ## {[@var{T}]} = BIMUlogm (@var{t1},@var{t2})
   ##
@@ -42,22 +40,21 @@ function [T] = BIMUlogm(t1,t2)
   ##   along with BIM; If not, see <http://www.gnu.org/licenses/>.
   ##
   ##
-  ##   MAIN AUTHOR:
+  ##   MAIN AUTHORS:
   ##   Carlo de Falco
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
-  ##   D-42119 Wuppertal, GermanLEANING TH# 	 AID IN PROGRAMMING AND CLEANING THE CODE:
+  ##   D-42119 Wuppertal, Germany
+  ##
   ##   Culpo Massimiliano
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
   ##   D-42119 Wuppertal, Germany
 
-	T = zeros(size(t2));
-
-	sing     = abs(t2-t1)< 100*eps ;
-	T(sing)  = (t2(sing)+t1(sing))/2;
-	T(~sing) = (t2(~sing)-t1(~sing))./log(t2(~sing)./t1(~sing));
-	
-endfunction
+  T = zeros(size(t2));
+  
+  sing     = abs(t2-t1)< 100*eps ;
+  T(sing)  = (t2(sing)+t1(sing))/2;
+  T(~sing) = (t2(~sing)-t1(~sing))./log(t2(~sing)./t1(~sing));

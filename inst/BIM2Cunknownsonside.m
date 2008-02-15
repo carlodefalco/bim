@@ -39,18 +39,17 @@ function [nodelist] = BIM2Cunknownsonside(mesh, sidelist)
   ##   along with BIM; If not, see <http://www.gnu.org/licenses/>.
   ##
   ##
-  ##   MAIN AUTHOR:
+  ##   MAIN AUTHORS:
   ##   Carlo de Falco
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
   ##   D-42119 Wuppertal, Germany
   ##
-  ##   HELP IN REORDERING AND CLEANING THE CODE:
   ##   Culpo Massimiliano
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
   ##   D-42119 Wuppertal, Germany
 
-	[nodelist] = MSH2Mnodesonsides(mesh,sidelist);
+  [nodelist] = MSH2Mnodesonsides(mesh,sidelist);

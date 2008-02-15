@@ -74,12 +74,13 @@ function [A] = BIM2Aadvdiff(mesh,alpha,gamma,eta,beta)
   ##   along with BIM; If not, see <http://www.gnu.org/licenses/>.
   ##
   ##
-  ##   MAIN AUTHOR:
+  ##   MAIN AUTHORS:
   ##   Carlo de Falco
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe für Angewandte MathematD-4-419 Wuppertal  Gaußstr. 20 
-  ##   D-42119 Wuppertal, GermanLEANING TH# 	 AID IN PROGRAMMING AND CLEANING THE CODE:
+  ##   D-42119 Wuppertal, Germany
+  ##
   ##   Culpo Massimiliano
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften

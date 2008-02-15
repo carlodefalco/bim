@@ -1,7 +1,6 @@
 function [jx, jy] = BIM2Cglobalflux(mesh,u,alpha,gamma,eta,beta)
 
   ## -*- texinfo -*-
-  ##
   ## @deftypefn {Function File} {[@var{jx},@var{jy}]} = BIM2Cglobalflux(@var{mesh},@var{u},@var{alpha},@var{gamma},@var{eta},@var{beta})
   ##
   ## Builds the Scharfetter-Gummel approximation of the vector field 
@@ -53,14 +52,13 @@ function [jx, jy] = BIM2Cglobalflux(mesh,u,alpha,gamma,eta,beta)
   ##   along with BIM; If not, see <http://www.gnu.org/licenses/>.
   ##
   ##
-  ##   MAIN AUTHOR:
+  ##   MAIN AUTHORS:
   ##   Carlo de Falco
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
   ##   D-42119 Wuppertal, Germany
   ##
-  ## 	 AID IN PROGRAMMING AND CLEANING THE CODE:
   ##   Culpo Massimiliano
   ##   Bergische Universität Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
