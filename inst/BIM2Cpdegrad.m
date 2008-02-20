@@ -37,21 +37,16 @@ function [gx, gy] = BIM2Cpdegrad(mesh,u)
   ##
   ##   MAIN AUTHORS:
   ##   Carlo de Falco
-  ##   Bergische Universität Wuppertal
-  ##   Fachbereich C - Mathematik und Naturwissenschaften
-  ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
-  ##   D-42119 Wuppertal, Germany
+  ##   Dublin City University
+  ##   Glasnevin, Dublin 9, Ireland
   ##
   ##   Culpo Massimiliano
-  ##   Bergische Universität Wuppertal
+  ##   Bergische Universitaet Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
-  ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
+  ##   Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
   ##   D-42119 Wuppertal, Germany
 
-
-
-
-shgx = reshape(mesh.shg(1,:,:),3,[]);
-gx = sum(shgx.*u(mesh.t(1:3,:)),1);
-shgy = reshape(mesh.shg(2,:,:),3,[]);
-gy = sum(shgy.*u(mesh.t(1:3,:)),1);
+  shgx = reshape(mesh.shg(1,:,:),3,[]);
+  gx = sum(shgx.*u(mesh.t(1:3,:)),1);
+  shgy = reshape(mesh.shg(2,:,:),3,[]);
+  gy = sum(shgy.*u(mesh.t(1:3,:)),1);

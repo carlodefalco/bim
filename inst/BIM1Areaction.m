@@ -1,21 +1,27 @@
-function [x,y] = BIM2Cunknowncoord(mesh)
+function [C] = BIM1Areaction(mesh,delta,zeta)
 
   ## -*- texinfo -*-
-  ## @deftypefn {Function File} {[@var{x}, @var{y}]} = BIM2Cunknowncoord(@var{mesh})
+  ## @deftypefn {Function File} {[@var{C}]} = BIM2Areaction(@var{mesh}, @var{delta}, @var{zeta})
   ##
-  ## Return as output the coordinates at which the unknown is evaluated by BIM method (nodes of the mesh).
-  ##
+  ## Builds the matrix for the discretization of the LHS
+  ## of the equation:
+  ## @iftex 
+  ## @tex
+  ## $ \delta \zeta u = f $
+  ## @end tex 
+  ## @end iftex 
+  ## @ifinfo
+  ## @var{delta} * @var{zeta} * u = f
+  ## @end ifinfo
+  ## 
   ## Input:
   ## @itemize @minus
-  ## @item @var{mesh}: PDEtool-like mesh with required field "p", "e", "t".
+  ## @item @var{mesh}: list of mesh nodes coordinates
+  ## @item @var{delta}: elemental values of a piece-wise constant function.
+  ## @item @var{zeta}: nodal values of a piece-wise linear conforming function.
   ## @end itemize 
   ##
-  ## Output:
-  ## @itemize @minus
-  ## @item @var{x}, @var{y}: x and y coordinates of the evaluation points.
-  ## @end itemize
-  ##
-  ## @seealso{BIM2Cunknownsonside}
+  ## @seealso{BIM1Arhs, BIM1Aadvdiff}
   ## @end deftypefn
 
   ## This file is part of 
@@ -48,6 +54,8 @@ function [x,y] = BIM2Cunknowncoord(mesh)
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
   ##   D-42119 Wuppertal, Germany
-
-  x = mesh.p(1,:)';
-  y = mesh.p(2,:)';
+  
+  Nnodes= length(mesh);
+  h 	= (mesh(2:end)-mesh(1:end-1)).*delta;
+  d0	= zeta.*[h(1)/2; (h(1:end-1)+h(2:end))/2; h(end)/2];
+  C     = spdiags(d0, 0, Nnodes,Nnodes);

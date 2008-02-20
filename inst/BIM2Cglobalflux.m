@@ -54,15 +54,13 @@ function [jx, jy] = BIM2Cglobalflux(mesh,u,alpha,gamma,eta,beta)
   ##
   ##   MAIN AUTHORS:
   ##   Carlo de Falco
-  ##   Bergische Universität Wuppertal
-  ##   Fachbereich C - Mathematik und Naturwissenschaften
-  ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
-  ##   D-42119 Wuppertal, Germany
+  ##   Dublin City University
+  ##   Glasnevin, Dublin 9, Ireland
   ##
   ##   Culpo Massimiliano
-  ##   Bergische Universität Wuppertal
+  ##   Bergische Universitaet Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
-  ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
+  ##   Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
   ##   D-42119 Wuppertal, Germany
   
   Nelem  = columns(mesh.t);

@@ -1,24 +1,33 @@
-function [x,y] = BIM2Cunknowncoord(mesh)
+function [A] = BIM1Alaplacian(mesh,epsilon)
 
   ## -*- texinfo -*-
-  ## @deftypefn {Function File} {[@var{x}, @var{y}]} = BIM2Cunknowncoord(@var{mesh})
   ##
-  ## Return as output the coordinates at which the unknown is evaluated by BIM method (nodes of the mesh).
+  ## @deftypefn {Function File} @
+  ## {@var{A}} = BIM1Alaplacian (@var{mesh}, @var{epsilon})
   ##
-  ## Input:
+  ## Builds the finite-element matrix for the 
+  ## discretization of the LHS
+  ## of the equation:
+  ## 
+  ## @iftex 
+  ## @tex
+  ## $ -( \varepsilon  \gamma  ( u' ))' = f $
+  ## @end tex 
+  ## @end iftex 
+  ## @ifinfo
+  ## - (@var{epsilon} ( u' ))' = f
+  ## @end ifinfo
+  ## 
+  ## where: 
   ## @itemize @minus
-  ## @item @var{mesh}: PDEtool-like mesh with required field "p", "e", "t".
-  ## @end itemize 
-  ##
-  ## Output:
-  ## @itemize @minus
-  ## @item @var{x}, @var{y}: x and y coordinates of the evaluation points.
+  ## @item @var{epsilon}: elemental values of an piece-wise constant function
   ## @end itemize
   ##
-  ## @seealso{BIM2Cunknownsonside}
+  ##
+  ## @seealso{BIM1Arhs, BIM1Areaction}
   ## @end deftypefn
 
-  ## This file is part of 
+ ## This file is part of 
   ##
   ##                   BIM - Box Integration Method Package for Octave
   ##      -------------------------------------------------------------------
@@ -48,6 +57,15 @@ function [x,y] = BIM2Cunknowncoord(mesh)
   ##   Fachbereich C - Mathematik und Naturwissenschaften
   ##   Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
   ##   D-42119 Wuppertal, Germany
-
-  x = mesh.p(1,:)';
-  y = mesh.p(2,:)';
+    
+  Nnodes    = length(mesh);
+  h = mesh(2:end)-mesh(1:end-1);
+  
+  d0 	= [ epsilon(1)./h(1); 
+            (epsilon(1:end-1)./h(1:end-1))+(epsilon(2:end)./h(2:end));
+            epsilon(end)./h(end)];
+  
+  d1	= [1000; -epsilon./h];
+  dm1	= [ -epsilon./h;1000];
+  
+  A	= spdiags([dm1, d0, d1],-1:1,Nnodes,Nnodes);

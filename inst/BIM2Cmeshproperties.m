@@ -39,16 +39,14 @@ function [omesh] = BIM2Cmeshproperties(imesh)
   ##
   ##
   ##   MAIN AUTHORS:
-  ##   Culpo Massimiliano
-  ##   Bergische Universität Wuppertal
-  ##   Fachbereich C - Mathematik und Naturwissenschaften
-  ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
-  ##   D-42119 Wuppertal, Germany
-  ##
   ##   Carlo de Falco
-  ##   Bergische Universität Wuppertal
+  ##   Dublin City University
+  ##   Glasnevin, Dublin 9, Ireland
+  ##
+  ##   Culpo Massimiliano
+  ##   Bergische Universitaet Wuppertal
   ##   Fachbereich C - Mathematik und Naturwissenschaften
-  ##   Arbeitsgruppe für Angewandte MathematD-42119 Wuppertal  Gaußstr. 20 
+  ##   Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
   ##   D-42119 Wuppertal, Germany
   
   omesh = imesh;
