@@ -4,6 +4,9 @@ Assembly functions
   BIM2Areaction
   BIM2Arhs
   BIM2Aboundarymass
+  BIM1Alaplacian
+  BIM1Areaction
+  BIM1Arhs
 Computation functions
   BIM2Cmeshproperties
   BIM2Cunknowncoord
