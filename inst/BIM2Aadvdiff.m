@@ -1,91 +1,89 @@
+## Copyright (C) 2007,2008  Carlo de Falco, Massimiliano Culpo
+##
+##                   BIM - Box Integration Method Package for Octave
+## 
+##  BIM is free software; you can redistribute it and/or modify
+##  it under the terms of the GNU General Public License as published by
+##  the Free Software Foundation; either version 2 of the License, or
+##  (at your option) any later version.
+##
+##  BIM is distributed in the hope that it will be useful,
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##  GNU General Public License for more details.
+##
+##  You should have received a copy of the GNU General Public License
+##  along with BIM; If not, see <http://www.gnu.org/licenses/>.
+##
+##
+##  AUTHORS:
+##
+##  Carlo de Falco
+##  Dublin City University
+##  Glasnevin, Dublin 9, Ireland
+##
+##  Culpo Massimiliano
+##  Bergische Universitaet Wuppertal
+##  Fachbereich C - Mathematik und Naturwissenschaften
+##  Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
+##  D-42119 Wuppertal, Germany
+
+## -*- texinfo -*-
+##
+## @deftypefn {Function File} @
+## {@var{A}} = BIM2Aadvdiff (@var{mesh}, @var{alpha}, @var{gamma}, @var{eta}, @var{beta})
+##
+## Builds the Scharfetter-Gummel matrix for the 
+## discretization of the LHS
+## of the equation:
+## 
+## @iftex 
+## @tex
+## $ -div ( \alpha  \gamma  ( \eta \vect{\nabla} u - \vect{beta} u )) = f $
+## @end tex 
+## @end iftex 
+## @ifinfo
+## -div (@var{alpha} * @var{gamma} (@var{eta} grad u - @var{beta} u )) = f
+## @end ifinfo
+## 
+## where: 
+## @itemize @minus
+## @item @var{alpha}: element-wise constant scalar function
+## @item @var{eta}, @var{gamma}: piecewise linear conforming 
+## scalar functions
+## @item @var{beta}: element-wise constant vector function
+## @end itemize
+##
+## Instead of passing the vector field @var{beta} directly
+## one can pass a piecewise linear conforming scalar function
+## @var{phi} as the last input.  In such case @var{beta} = grad @var{phi}
+## is assumed.  If @var{phi} is a single scalar value @var{beta}
+## is assumed to be 0 in the whole domain.
+## 
+## Example:
+## @example
+## [mesh.p,mesh.e,mesh.t] = MSH2Mstructmesh([0:1/3:1],[0:1/3:1],1,1:4);
+## mesh = BIM2Cmeshproperties(mesh);
+## x = mesh.p(1,:)';
+## Dnodes = BIM2Cunknownsonside(mesh,[2,4]);
+## Nnodes = columns(mesh.p); Nelements = columns(mesh.t);
+## Varnodes = setdiff(1:Nnodes,Dnodes);
+## alpha  = ones(Nelements,1); eta = .1*ones(Nnodes,1);
+## beta   = [ones(1,Nelements);zeros(1,Nelements)];
+## gamma  = ones(Nnodes,1);
+## f      = BIM2Arhs(mesh,ones(Nnodes,1),ones(Nelements,1));
+## S = BIM2Aadvdiff(mesh,alpha,gamma,eta,beta);
+## u = zeros(Nnodes,1);
+## u(Varnodes) = S(Varnodes,Varnodes)\f(Varnodes);
+## uex = x - (exp(10*x)-1)/(exp(10)-1);
+## assert(u,uex,1e-7)
+## @end example
+##
+## @seealso{BIM2Arhs, BIM2Areaction, BIM2Cmeshproperties}
+## @end deftypefn
+
 function [A] = BIM2Aadvdiff(mesh,alpha,gamma,eta,beta)
 
-  ## -*- texinfo -*-
-  ##
-  ## @deftypefn {Function File} @
-  ## {@var{A}} = BIM2Aadvdiff (@var{mesh}, @var{alpha}, @var{gamma}, @var{eta}, @var{beta})
-  ##
-  ## Builds the Scharfetter-Gummel matrix for the 
-  ## discretization of the LHS
-  ## of the equation:
-  ## 
-  ## @iftex 
-  ## @tex
-  ## $ -div ( \alpha  \gamma  ( \eta \vect{\nabla} u - \vect{beta} u )) = f $
-  ## @end tex 
-  ## @end iftex 
-  ## @ifinfo
-  ## -div (@var{alpha} * @var{gamma} (@var{eta} grad u - @var{beta} u )) = f
-  ## @end ifinfo
-  ## 
-  ## where: 
-  ## @itemize @minus
-  ## @item @var{alpha}: element-wise constant scalar function
-  ## @item @var{eta}, @var{gamma}: piecewise linear conforming 
-  ## scalar functions
-  ## @item @var{beta}: element-wise constant vector function
-  ## @end itemize
-  ##
-  ## Instead of passing the vector field @var{beta} directly
-  ## one can pass a piecewise linear conforming scalar function
-  ## @var{phi} as the last input.  In such case @var{beta} = grad @var{phi}
-  ## is assumed.  If @var{phi} is a single scalar value @var{beta}
-  ## is assumed to be 0 in the whole domain.
-  ## 
-  ## Example:
-  ## @example
-  ## [mesh.p,mesh.e,mesh.t] = MSH2Mstructmesh([0:1/3:1],[0:1/3:1],1,1:4);
-  ## mesh = BIM2Cmeshproperties(mesh);
-  ## x = mesh.p(1,:)';
-  ## Dnodes = BIM2Cunknownsonside(mesh,[2,4]);
-  ## Nnodes = columns(mesh.p); Nelements = columns(mesh.t);
-  ## Varnodes = setdiff(1:Nnodes,Dnodes);
-  ## alpha  = ones(Nelements,1); eta = .1*ones(Nnodes,1);
-  ## beta   = [ones(1,Nelements);zeros(1,Nelements)];
-  ## gamma  = ones(Nnodes,1);
-  ## f      = BIM2Arhs(mesh,ones(Nnodes,1),ones(Nelements,1));
-  ## S = BIM2Aadvdiff(mesh,alpha,gamma,eta,beta);
-  ## u = zeros(Nnodes,1);
-  ## u(Varnodes) = S(Varnodes,Varnodes)\f(Varnodes);
-  ## uex = x - (exp(10*x)-1)/(exp(10)-1);
-  ## assert(u,uex,1e-7)
-  ## @end example
-  ##
-  ## @seealso{BIM2Arhs, BIM2Areaction, BIM2Cmeshproperties}
-  ## @end deftypefn
-
-  ## This file is part of 
-  ##
-  ##                   BIM - Box Integration Method Package for Octave
-  ##      -------------------------------------------------------------------
-  ##              Copyright (C) 2007  Carlo de Falco
-  ##              Copyright (C) 2007  Culpo Massimiliano
-  ## 
-  ##   BIM is free software; you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation; either version 2 of the License, or
-  ##   (at your option) any later version.
-  ## 
-  ##   BIM is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
-  ## 
-  ##   You should have received a copy of the GNU General Public License
-  ##   along with BIM; If not, see <http://www.gnu.org/licenses/>.
-  ##
-  ##
-  ##   MAIN AUTHORS:
-  ##   Carlo de Falco
-  ##   Dublin City University
-  ##   Glasnevin, Dublin 9, Ireland
-  ##
-  ##   Culpo Massimiliano
-  ##   Bergische Universitaet Wuppertal
-  ##   Fachbereich C - Mathematik und Naturwissenschaften
-  ##   Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
-  ##   D-42119 Wuppertal, Germany
-    
   Nnodes = columns(mesh.p);
   Nelements = columns(mesh.t);
   
@@ -103,8 +101,8 @@ function [A] = BIM2Aadvdiff(mesh,alpha,gamma,eta,beta)
       gjnode(inode,jnode,:)=mesh.t(jnode,:);
       Lloc(inode,jnode,:)  = sum( shg(:,inode,:) .* shg(:,jnode,:),1)...
 	  .* alphaareak;
-    end
-  end		
+    endfor
+  endfor
   
   
   x      = mesh.p(1,:);
@@ -125,7 +123,7 @@ function [A] = BIM2Aadvdiff(mesh,alpha,gamma,eta,beta)
     v31    = betaloc(1,:)-betaloc(3,:); 
   else
     error("coefficient beta has wrong dimensions");
-  end
+  endif
   
   etaloc = eta(mesh.t(1:3,:));
   
