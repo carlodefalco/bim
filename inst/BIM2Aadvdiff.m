@@ -62,7 +62,7 @@
 ## 
 ## Example:
 ## @example
-## [mesh.p,mesh.e,mesh.t] = MSH2Mstructmesh([0:1/3:1],[0:1/3:1],1,1:4);
+## mesh = MSH2Mstructmesh([0:1/3:1],[0:1/3:1],1,1:4);
 ## mesh = BIM2Cmeshproperties(mesh);
 ## x = mesh.p(1,:)';
 ## Dnodes = BIM2Cunknownsonside(mesh,[2,4]);
