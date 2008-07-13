@@ -5,7 +5,8 @@
 
 <p>
 This is a short example on how to use <tt>BIM</tt> to solve a DAR problem.<br>
-The data for this example can be found in the directory <tt>BIM/examples/FIUME</tt>
+The data for this example can be found in the doc directory inside the
+bim istallation directory.
 </p>
 
 <b> Create the mesh and precompute the mesh properties </b><br>
@@ -19,7 +20,7 @@ The geometry of the domain was created using gmsh and is stored in the file <tt>
 
 <b> Construct an initial guess</b><br>
 
-For a linear problem only the values at internal nodes are actually relevant<br>
+For a linear problem only the values at boundary nodes are actually relevant<br>
 
 <p><pre>
 [xu, yu] = BIM2Cunknowncoord(mesh);
