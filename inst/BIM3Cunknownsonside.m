@@ -29,47 +29,35 @@
 ##  D-42119 Wuppertal, Germany
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {[@var{C}]} = BIM2Areaction(@var{mesh}, @var{delta}, @var{zeta})
+## @deftypefn {Function File} {[@var{nodelist}]} = BIM3Cunknownsonside(@var{mesh},@var{sidelist})
 ##
-## Builds the matrix for the discretization of the LHS
-## of the equation:
-## @iftex 
-## @tex
-## $ \delta \zeta u = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
-## @var{delta} * @var{zeta} * u = f
-## @end ifinfo
-## 
+## Returns the list of the mesh nodes that lie on the specified geometrical sides.
+##
 ## Input:
 ## @itemize @minus
-## @item @var{mesh}: PDEtool-like mesh structure with required fields "p", "e", "t".
-## @item @var{delta}: element-wise constant scalar function.
-## @item @var{zeta}: piecewise linear conforming scalar function.
+## @item @var{mesh}: PDEtool-like mesh with required field "p", "e", "t".
+## @item @var{sidelist}: list of the sides of the geometrical border.
 ## @end itemize 
 ##
-## @seealso{BIM2Arhs, BIM2Aadvdiff, BIM2Cmeshproperties}
+## Output:
+## @itemize @minus
+## @item @var{nodelist}: list of the nodes that lie on the specified sides.
+## @end itemize
+##
 ## @end deftypefn
-
-function [C] = BIM2Areaction(mesh,delta,zeta)
-
-  Nnodes    = size(mesh.p,2);
-  Nelements = size(mesh.t,2);
   
-  wjacdet   = mesh.wjacdet(:,:);
-  coeff     = zeta(mesh.t(1:3,:));
-  coeffe    = delta(:);
-  
-  ## Local matrix	
-  Blocmat = zeros(3,Nelements);	
-  for inode = 1:3
-    Blocmat(inode,:) = coeffe'.*coeff(inode,:).*wjacdet(inode,:);
-  endfor
-  
-  gnode = (mesh.t(1:3,:));
-  
-  ## Global matrix
-  C = sparse(gnode(:),gnode(:),Blocmat(:));
+function [nodelist] = BIM3Cunknownsonside(mesh, sidelist)
+	
+  [nodelist] = MSH3Mnodesonfaces(mesh,sidelist);
 
 endfunction
+
+%!shared mesh
+% x = y = z = linspace(0,1,2);
+% [mesh] = MSH3Mstructmesh(x,y,z,1,1:6);
+%!test
+% assert( BIM3Cunknownsonside(mesh, 1),[1 2 5 6] )
+%!test
+% assert( BIM3Cunknownsonside(mesh, 2),[3 4 7 8] )
+%!test
+% assert( BIM3Cunknownsonside(mesh, [1 2]),1:8)

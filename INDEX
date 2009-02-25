@@ -1,18 +1,25 @@
 BIM >> BIM - Box Integration Method Package for Octave
 Assembly functions
+  BIM3Alaplacian
+  BIM3Areaction
+  BIM3Arhs
   BIM2Aadvdiff
+  BIM2Aalaplacian
   BIM2Areaction
   BIM2Arhs
   BIM2Aboundarymass
   BIM1Alaplacian
+  BIM1Aadvdiff	
   BIM1Areaction
   BIM1Arhs
 Computation functions
+  BIM3Cmeshproperties
+  BIM3Cunknownsonside
   BIM2Cmeshproperties
   BIM2Cunknowncoord
   BIM2Cunknownsonside
   BIM2Cpdegrad
   BIM2Cglobalflux
 Utilities
-	BIMUbern
-	BIMUlogm
+  BIMUbern
+  BIMUlogm

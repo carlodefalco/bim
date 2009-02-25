@@ -29,47 +29,33 @@
 ##  D-42119 Wuppertal, Germany
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {[@var{C}]} = BIM2Areaction(@var{mesh}, @var{delta}, @var{zeta})
 ##
-## Builds the matrix for the discretization of the LHS
+## @deftypefn {Function File} @
+## {@var{A}} = BIM2Alaplacian (@var{mesh}, @var{epsilon})
+##
+## Builds the finite-element matrix for the 
+## discretization of the LHS
 ## of the equation:
+## 
 ## @iftex 
 ## @tex
-## $ \delta \zeta u = f $
+## $ -div ( \varepsilon  \gamma  ( \nabla u )) = f $
 ## @end tex 
 ## @end iftex 
 ## @ifinfo
-## @var{delta} * @var{zeta} * u = f
+## - div (@var{epsilon} grad ( u )) = f
 ## @end ifinfo
 ## 
-## Input:
+## where: 
 ## @itemize @minus
-## @item @var{mesh}: PDEtool-like mesh structure with required fields "p", "e", "t".
-## @item @var{delta}: element-wise constant scalar function.
-## @item @var{zeta}: piecewise linear conforming scalar function.
-## @end itemize 
+## @item @var{epsilon}: elemental values of an piece-wise constant function
+## @end itemize
 ##
-## @seealso{BIM2Arhs, BIM2Aadvdiff, BIM2Cmeshproperties}
+##
+## @seealso{BIM2Arhs, BIM2Areaction}
 ## @end deftypefn
 
-function [C] = BIM2Areaction(mesh,delta,zeta)
-
-  Nnodes    = size(mesh.p,2);
-  Nelements = size(mesh.t,2);
-  
-  wjacdet   = mesh.wjacdet(:,:);
-  coeff     = zeta(mesh.t(1:3,:));
-  coeffe    = delta(:);
-  
-  ## Local matrix	
-  Blocmat = zeros(3,Nelements);	
-  for inode = 1:3
-    Blocmat(inode,:) = coeffe'.*coeff(inode,:).*wjacdet(inode,:);
-  endfor
-  
-  gnode = (mesh.t(1:3,:));
-  
-  ## Global matrix
-  C = sparse(gnode(:),gnode(:),Blocmat(:));
-
+function A = BIM2Alaplacian(mesh,epsilon)
+  Nnodes = columns(mesh.p); Nelements = columns(mesh.t);
+  A = BIM2Aadvdiff (mesh, epsilon, ones(Nnodes,1), ones(Nelements,1), 0);
 endfunction

@@ -1,6 +1,6 @@
 Name: BIM
-Version: 0.0.7
-Date: 2008-08-23
+Version: 0.1.0
+Date: 2009-02-25
 Author: Carlo de Falco, Culpo Massimiliano
 Maintainer: Culpo Massimiliano
 Title: PDE Solver using a Finite Element/Finite Volume approach
@@ -8,4 +8,3 @@ Description: Package for solving Diffusion Advection Reaction (DAR) Partial Diff
 Depends: octave (>= 3.0.0), fpl, msh 
 Autoload: no
 License: GPL version 2 or later
-Url: http://www.comson.org/dem

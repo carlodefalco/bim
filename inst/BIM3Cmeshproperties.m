@@ -29,47 +29,44 @@
 ##  D-42119 Wuppertal, Germany
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {[@var{C}]} = BIM2Areaction(@var{mesh}, @var{delta}, @var{zeta})
+## @deftypefn {Function File} {[@var{omesh}]} = BIM3Cmeshproperties(@var{imesh})
 ##
-## Builds the matrix for the discretization of the LHS
-## of the equation:
-## @iftex 
-## @tex
-## $ \delta \zeta u = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
-## @var{delta} * @var{zeta} * u = f
-## @end ifinfo
-## 
+## Creates an omesh structure starting from imesh. All the properties needed by BIM are added as fields.
+##
 ## Input:
 ## @itemize @minus
-## @item @var{mesh}: PDEtool-like mesh structure with required fields "p", "e", "t".
-## @item @var{delta}: element-wise constant scalar function.
-## @item @var{zeta}: piecewise linear conforming scalar function.
+## @item @var{imesh}: PDEtool-like mesh with required field "p", "e", "t".
 ## @end itemize 
 ##
-## @seealso{BIM2Arhs, BIM2Aadvdiff, BIM2Cmeshproperties}
+## Output:
+## @itemize @minus
+## @item @var{omesh}: PDEtool-like mesh structure with added fields needed by BIM method.
+## @end itemize
+##
+## @seealso{BIM3Areaction, BIM3Alaplacian, BIM3Arhs}
 ## @end deftypefn
 
-function [C] = BIM2Areaction(mesh,delta,zeta)
+function [omesh] = BIM3Cmeshproperties(imesh)
 
-  Nnodes    = size(mesh.p,2);
-  Nelements = size(mesh.t,2);
-  
-  wjacdet   = mesh.wjacdet(:,:);
-  coeff     = zeta(mesh.t(1:3,:));
-  coeffe    = delta(:);
-  
-  ## Local matrix	
-  Blocmat = zeros(3,Nelements);	
-  for inode = 1:3
-    Blocmat(inode,:) = coeffe'.*coeff(inode,:).*wjacdet(inode,:);
-  endfor
-  
-  gnode = (mesh.t(1:3,:));
-  
-  ## Global matrix
-  C = sparse(gnode(:),gnode(:),Blocmat(:));
+  omesh = imesh;
+  [omesh.wjacdet,omesh.area,omesh.shg,omesh.shp] = \
+      MSH3Mgeomprop(imesh,"wjacdet","area","shg","shp");
 
 endfunction
+
+%!shared mesh
+% x = y = z = linspace(0,1,4);
+% [mesh] = MSH3Mstructmesh(x,y,z,1,1:6);
+% [mesh] = BIM3Cmeshproperties(mesh);
+%!test
+% tmp = MSH3Mgeomprop(mesh,"wjacdet");
+% assert(mesh.wjacdet,tmp);
+%!test
+% tmp = MSH3Mgeomprop(mesh,"shg");
+% assert(mesh.shg,tmp);
+%!test
+% tmp = MSH3Mgeomprop(mesh,"shp");
+% assert(mesh.shp,tmp);
+%!test
+% assert(mesh.area,sum(mesh.wjacdet,1));
+

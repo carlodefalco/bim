@@ -84,59 +84,60 @@
 
 function [A] = BIM2Aadvdiff(mesh,alpha,gamma,eta,beta)
 
-  Nnodes = columns(mesh.p);
-  Nelements = columns(mesh.t);
+  Nnodes     = columns(mesh.p);
+  Nelements  = columns(mesh.t);
   
-  alphaareak   = reshape (alpha.*mesh.area,1,1,Nelements);
-  shg          = mesh.shg(:,:,:);
+  alphaareak = reshape (alpha.*mesh.area,1,1,Nelements);
+  shg        = mesh.shg(:,:,:);
   
   
-  ## build local Laplacian matrix	
+  ## Build local Laplacian matrix	
   
-  Lloc=zeros(3,3,Nelements);	
+  Lloc = zeros(3,3,Nelements);	
   
-  for inode=1:3
-    for jnode=1:3
-      ginode(inode,jnode,:)=mesh.t(inode,:);
-      gjnode(inode,jnode,:)=mesh.t(jnode,:);
-      Lloc(inode,jnode,:)  = sum( shg(:,inode,:) .* shg(:,jnode,:),1)...
-	  .* alphaareak;
+  for inode = 1:3
+    for jnode = 1:3
+      ginode(inode,jnode,:) = mesh.t(inode,:);
+      gjnode(inode,jnode,:) = mesh.t(jnode,:);
+      Lloc(inode,jnode,:)   = \
+	  sum( shg(:,inode,:) .* shg(:,jnode,:),1) .* alphaareak;
     endfor
   endfor
   
-  
-  x      = mesh.p(1,:);
-  x      = x(mesh.t(1:3,:));
-  y      = mesh.p(2,:);
-  y      = y(mesh.t(1:3,:));
+  x = mesh.p(1,:);
+  x = x(mesh.t(1:3,:));
+  y = mesh.p(2,:);
+  y = y(mesh.t(1:3,:));
   
   if all(size(beta)==1)
-    v12=0;v23=0;v31=0; 
+    v12 = 0;
+    v23 = 0;
+    v31 = 0; 
   elseif all(size(beta)==[2,Nelements])
-    v12    = beta(1,:) .* (x(2,:)-x(1,:)) + beta(2,:) .* (y(2,:)-y(1,:));
-    v23    = beta(1,:) .* (x(3,:)-x(2,:)) + beta(2,:) .* (y(3,:)-y(2,:));
-    v31    = beta(1,:) .* (x(1,:)-x(3,:)) + beta(2,:) .* (y(1,:)-y(3,:)); 
+    v12 = beta(1,:) .* (x(2,:)-x(1,:)) + beta(2,:) .* (y(2,:)-y(1,:));
+    v23 = beta(1,:) .* (x(3,:)-x(2,:)) + beta(2,:) .* (y(3,:)-y(2,:));
+    v31 = beta(1,:) .* (x(1,:)-x(3,:)) + beta(2,:) .* (y(1,:)-y(3,:)); 
   elseif all(size(beta)==[Nnodes,1])
     betaloc = beta(mesh.t(1:3,:));
-    v12    = betaloc(2,:)-betaloc(1,:);
-    v23    = betaloc(3,:)-betaloc(2,:);
-    v31    = betaloc(1,:)-betaloc(3,:); 
+    v12     = betaloc(2,:)-betaloc(1,:);
+    v23     = betaloc(3,:)-betaloc(2,:);
+    v31     = betaloc(1,:)-betaloc(3,:); 
   else
     error("coefficient beta has wrong dimensions");
   endif
   
   etaloc = eta(mesh.t(1:3,:));
   
-  eta12    = etaloc(2,:)-etaloc(1,:);
-  eta23    = etaloc(3,:)-etaloc(2,:);
-  eta31    = etaloc(1,:)-etaloc(3,:);
+  eta12 = etaloc(2,:) - etaloc(1,:);
+  eta23 = etaloc(3,:) - etaloc(2,:);
+  eta31 = etaloc(1,:) - etaloc(3,:);
   
   etalocm1 = BIMUlogm(etaloc(2,:),etaloc(3,:));
   etalocm2 = BIMUlogm(etaloc(3,:),etaloc(1,:));
   etalocm3 = BIMUlogm(etaloc(1,:),etaloc(2,:));
   
   gammaloc = gamma(mesh.t(1:3,:));
-  geloc      = gammaloc.*etaloc;
+  geloc    = gammaloc.*etaloc;
   
   gelocm1 = BIMUlogm(geloc(2,:),geloc(3,:));
   gelocm2 = BIMUlogm(geloc(3,:),geloc(1,:));
