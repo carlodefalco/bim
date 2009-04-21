@@ -57,5 +57,5 @@
 
 function A = BIM2Alaplacian(mesh,epsilon)
   Nnodes = columns(mesh.p); Nelements = columns(mesh.t);
-  A = BIM2Aadvdiff (mesh, epsilon, ones(Nnodes,1), ones(Nelements,1), 0);
+  A = BIM2Aadvdiff (mesh, epsilon, ones(Nnodes,1), ones(Nnodes,1), 0);
 endfunction
