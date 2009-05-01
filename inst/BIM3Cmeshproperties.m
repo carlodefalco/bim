@@ -31,7 +31,8 @@
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {[@var{omesh}]} = BIM3Cmeshproperties(@var{imesh})
 ##
-## Creates an omesh structure starting from imesh. All the properties needed by BIM are added as fields.
+## Compute mesh properties needed by the operator assenmbly routines and
+## add the as fields to the mesh structure.
 ##
 ## Input:
 ## @itemize @minus

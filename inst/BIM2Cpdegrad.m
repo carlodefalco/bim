@@ -32,7 +32,7 @@
 ##
 ## @deftypefn {Function File} {[@var{gx},@var{gy}]} = BIM2Cpdegrad(@var{mesh},@var{u})
 ##
-## Builds the P1 approximation of the gradient of the computed solution.
+## Build the P1 approximation to the gradient of a computed solution.
 ##
 ## Input:
 ## @itemize @minus

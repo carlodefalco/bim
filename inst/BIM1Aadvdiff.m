@@ -36,7 +36,6 @@
 ## Builds the Scharfetter-Gummel matrix for the 
 ## discretization of the LHS
 ## of the equation:
-## 
 ## @iftex 
 ## @tex
 ## $ - ( \alpha  \gamma  ( \eta  u' - \vect{beta} u ))' = f $

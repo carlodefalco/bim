@@ -31,7 +31,7 @@
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {[@var{nodelist}]} = BIM3Cunknownsonside(@var{mesh},@var{sidelist})
 ##
-## Returns the list of the mesh nodes that lie on the specified geometrical sides.
+## List the mesh nodes that lie on the specified geometrical sides.
 ##
 ## Input:
 ## @itemize @minus

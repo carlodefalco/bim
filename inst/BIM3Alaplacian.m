@@ -34,7 +34,6 @@
 ##
 ## Builds the Laplacian matrix for the discretization of the LHS of the
 ## equation:
-## 
 ## @iftex 
 ## @tex
 ## $ -div ( \alpha  ( \eta \vect{\nabla} u ) $

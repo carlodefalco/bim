@@ -36,7 +36,6 @@
 ## Builds the finite-element matrix for the 
 ## discretization of the LHS
 ## of the equation:
-## 
 ## @iftex 
 ## @tex
 ## $ -( \varepsilon  \gamma  ( u' ))' = f $

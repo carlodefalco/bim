@@ -34,7 +34,6 @@
 ##
 ## Builds the mass matrix for the discretization of the LHS of the
 ## equation:
-## 
 ## @iftex 
 ## @tex
 ## $ \delta \zeta u = f $
