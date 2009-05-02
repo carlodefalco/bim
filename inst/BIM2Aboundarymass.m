@@ -1,4 +1,4 @@
-## Copyright (C) 2007,2008  Carlo de Falco, Massimiliano Culpo
+## Copyright (C) 2007,2008,2009  Carlo de Falco, Massimiliano Culpo
 ##
 ##                   BIM - Box Integration Method Package for Octave
 ## 
@@ -18,9 +18,7 @@
 ##
 ##  AUTHORS:
 ##
-##  Carlo de Falco
-##  Dublin City University
-##  Glasnevin, Dublin 9, Ireland
+##  Carlo de Falco <cdf _AT_ users.sourceforge.net>
 ##
 ##  Culpo Massimiliano
 ##  Bergische Universitaet Wuppertal
