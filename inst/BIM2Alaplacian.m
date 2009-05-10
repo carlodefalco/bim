@@ -34,6 +34,7 @@
 ## Builds the finite-element matrix for the 
 ## discretization of the LHS
 ## of the equation:
+## 
 ## @iftex 
 ## @tex
 ## $ -div ( \varepsilon  \gamma  ( \nabla u )) = f $

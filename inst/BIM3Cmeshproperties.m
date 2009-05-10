@@ -29,8 +29,8 @@
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {[@var{omesh}]} = BIM3Cmeshproperties(@var{imesh})
 ##
-## Compute mesh properties needed by the operator assenmbly routines and
-## add the as fields to the mesh structure.
+## Compute mesh properties needed by the operator assembly routines and
+## add them as fields to the mesh structure.
 ##
 ## Input:
 ## @itemize @minus
