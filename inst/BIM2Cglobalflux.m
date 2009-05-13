@@ -30,15 +30,14 @@
 ## @deftypefn {Function File} {[@var{jx},@var{jy}]} = BIM2Cglobalflux(@var{mesh},@var{u},@var{alpha},@var{gamma},@var{eta},@var{beta})
 ##
 ## Builds the Scharfetter-Gummel approximation of the vector field 
-##
 ## @iftex 
 ## @tex
 ## $ \vect{J}(u) = \alpha \gamma (\eta\vect{\nabla}u-\vect{beta}u) $
 ## @end tex 
 ## @end iftex 
-## @ifinfo
+## @ifnottex
 ## J(@var{u}) = @var{alpha}* @var{gamma} * (@var{eta} * grad @var{u} - @var{beta} * @var{u}))
-## @end ifinfo
+## @end ifnottex
 ## 
 ## where: 
 ## @itemize @minus

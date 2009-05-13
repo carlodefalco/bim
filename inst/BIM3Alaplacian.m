@@ -31,16 +31,15 @@
 ## {@var{A}} = BIM3Alaplacian (@var{mesh}, @var{alpha}, @var{eta})
 ##
 ## Builds the Laplacian matrix for the discretization of the LHS of the
-## equation:
-## 
+## equation
 ## @iftex 
 ## @tex
 ## $ -div ( \alpha  ( \eta \vect{\nabla} u ) $
 ## @end tex 
 ## @end iftex 
-## @ifinfo
+## @ifnottex
 ## -div (@var{alpha} (@var{eta} grad u ) = f
-## @end ifinfo
+## @end ifnottex
 ## 
 ## where: 
 ## @itemize @minus

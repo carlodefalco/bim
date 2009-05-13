@@ -33,16 +33,15 @@
 ##
 ## Builds the Scharfetter-Gummel matrix for the 
 ## discretization of the LHS
-## of the equation:
-## 
+## of the equation
 ## @iftex 
 ## @tex
 ## $ -div ( \alpha  \gamma  ( \eta \vect{\nabla} u - \vect{beta} u )) = f $
 ## @end tex 
 ## @end iftex 
-## @ifinfo
+## @ifnottex
 ## -div (@var{alpha} * @var{gamma} (@var{eta} grad u - @var{beta} u )) = f
-## @end ifinfo
+## @end ifnottex
 ## 
 ## where: 
 ## @itemize @minus

@@ -33,16 +33,15 @@
 ##
 ## Builds the finite-element matrix for the 
 ## discretization of the LHS
-## of the equation:
-## 
+## of the equation
 ## @iftex 
 ## @tex
 ## $ -( \varepsilon  \gamma  ( u' ))' = f $
 ## @end tex 
 ## @end iftex 
-## @ifinfo
+## @ifnottex
 ## - (@var{epsilon} ( u' ))' = f
-## @end ifinfo
+## @end ifnottex
 ## 
 ## where: 
 ## @itemize @minus

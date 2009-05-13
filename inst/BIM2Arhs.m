@@ -29,15 +29,15 @@
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {[@var{b}]} = BIM2Arhs(@var{mesh}, @var{f}, @var{g})
 ##
-## Constructs the RHS for the DAR problem:
+## Constructs the RHS for the DAR problem
 ## @iftex 
 ## @tex
 ## $ -div ( \alpha  \gamma  ( \eta \vect{\nabla} u - \vect{beta} u )) + \delta \zeta u = f g $
 ## @end tex 
 ## @end iftex 
-## @ifinfo
+## @ifnottex
 ## -div (@var{alpha} * @var{gamma} (@var{eta} grad u - @var{beta} u )) + @var{delta} * @var{zeta} u = @var{f}*@var{g}
-## @end ifinfo
+## @end ifnottex
 ## 
 ## Input:
 ## @itemize @minus

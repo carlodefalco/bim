@@ -31,16 +31,15 @@
 ## {@var{C}} = BIM3Areaction (@var{mesh}, @var{delta}, @var{zeta})
 ##
 ## Builds the mass matrix for the discretization of the LHS of the
-## equation:
-## 
+## equation
 ## @iftex 
 ## @tex
 ## $ \delta \zeta u = f $
 ## @end tex 
 ## @end iftex 
-## @ifinfo
+## @ifnottex
 ## @var{delta} * @var{zeta} * @var{u} = f
-## @end ifinfo
+## @end ifnottex
 ## 
 ## Input:
 ## @itemize @minus

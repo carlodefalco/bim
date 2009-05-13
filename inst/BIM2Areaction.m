@@ -30,15 +30,15 @@
 ## @deftypefn {Function File} {[@var{C}]} = BIM2Areaction(@var{mesh}, @var{delta}, @var{zeta})
 ##
 ## Builds the matrix for the discretization of the LHS
-## of the equation:
+## of the equation
 ## @iftex 
 ## @tex
 ## $ \delta \zeta u = f $
 ## @end tex 
 ## @end iftex 
-## @ifinfo
+## @ifnottex
 ## @var{delta} * @var{zeta} * u = f
-## @end ifinfo
+## @end ifnottex
 ## 
 ## Input:
 ## @itemize @minus
