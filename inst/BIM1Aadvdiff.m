@@ -33,15 +33,16 @@
 ##
 ## Builds the Scharfetter-Gummel matrix for the 
 ## discretization of the LHS
-## of the equation
+## of the equation:
+## 
 ## @iftex 
 ## @tex
 ## $ - ( \alpha  \gamma  ( \eta  u' - \vect{beta} u ))' = f $
 ## @end tex 
 ## @end iftex 
-## @ifnottex
+## @ifinfo
 ## - (@var{alpha} * @var{gamma} (@var{eta} u' - @var{beta} u ))' = f
-## @end ifnottex
+## @end ifinfo
 ## 
 ## where: 
 ## @itemize @minus
@@ -87,7 +88,7 @@ function A = BIM1Aadvdiff(x,alpha,gamma,eta,beta)
  
   dm1 = [-(ck.*bmk); NaN]; 
   dp1 = [NaN; -(ck.*bpk)]; 
-  d0  = [(ck(1).*bpk(1)); ((ck.*bmk)(2:end) + (ck.*bpk)(1:end-1)); (ck(end).*bmk(end))];
+  d0  = [(ck(1).*bmk(1)); ((ck.*bmk)(2:end) + (ck.*bpk)(1:end-1)); (ck(end).*bpk(end))];
   A   = spdiags([dm1, d0, dp1],-1:1,Nnodes,Nnodes);
 
 endfunction
