@@ -1,7 +1,8 @@
-## Copyright (C) 2007,2008,2009  Carlo de Falco, Massimiliano Culpo
+## Copyright (C) 2006,2007,2008,2009,2010  Carlo de Falco, Massimiliano Culpo
 ##
-##                   BIM - Box Integration Method Package for Octave
-## 
+## This file is part of:
+##     BIM - Diffusion Advection Reaction PDE Solver
+##
 ##  BIM is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
 ##  the Free Software Foundation; either version 2 of the License, or
@@ -15,20 +16,12 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with BIM; If not, see <http://www.gnu.org/licenses/>.
 ##
-##
-##  AUTHORS:
-##
-##  Carlo de Falco <cdf _AT_ users.sourceforge.net>
-##
-##  Culpo Massimiliano
-##  Bergische Universitaet Wuppertal
-##  Fachbereich C - Mathematik und Naturwissenschaften
-##  Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
-##  D-42119 Wuppertal, Germany
+##  author: Carlo de Falco     <cdf _AT_ users.sourceforge.net>
+##  author: Massimiliano Culpo <culpo _AT_ users.sourceforge.net>
 
 ## -*- texinfo -*-
 ## @deftypefn {Function File} @
-## {[@var{T}]} = BIMUlogm (@var{t1},@var{t2})
+## {[@var{T}]} = bimu_logm (@var{t1},@var{t2})
 ## 
 ## Input:
 ## @itemize @minus
@@ -41,10 +34,17 @@
 ## @item @var{T}:
 ## @end itemize
 ##
-## @seealso{BIMUbern}
+## @seealso{bimu_bern}
 ## @end deftypefn
 
-function [T] = BIMUlogm(t1,t2)
+function [T] = bimu_logm(t1,t2)
+
+  ## Check input
+  if nargin != 2
+    error("bimu_logm: wrong number of input parameters.");
+  elseif size(t1) != size(t2)
+    error("bimu_logm: t1 and t2 are of different size.");
+  endif
 
   T = zeros(size(t2));
   

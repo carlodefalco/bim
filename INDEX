@@ -1,25 +1,24 @@
-BIM >> BIM - Box Integration Method Package for Octave
-Assembly functions
-  BIM3Alaplacian
-  BIM3Areaction
-  BIM3Arhs
-  BIM2Aadvdiff
-  BIM2Alaplacian
-  BIM2Areaction
-  BIM2Arhs
-  BIM2Aboundarymass
-  BIM1Alaplacian
-  BIM1Aadvdiff	
-  BIM1Areaction
-  BIM1Arhs
-Computation functions
-  BIM3Cmeshproperties
-  BIM3Cunknownsonside
-  BIM2Cmeshproperties
-  BIM2Cunknowncoord
-  BIM2Cunknownsonside
-  BIM2Cpdegrad
-  BIM2Cglobalflux
+BIM >> BIM - Diffusion Advection Reaction PDE Solver
+Matrix assembly
+  bim1a_advection_diffusion
+  bim2a_advection_diffusion
+  bim1a_laplacian
+  bim2a_laplacian
+  bim3a_laplacian
+  bim1a_reaction
+  bim2a_reaction
+  bim3a_reaction
+  bim1a_rhs
+  bim2a_rhs
+  bim3a_rhs
+  bim2a_boundary_mass
+Pre-processing and Post-processing computations
+  bim2c_mesh_properties
+  bim3c_mesh_properties
+  bim2c_unknowns_on_side
+  bim3c_unknowns_on_faces
+  bim2c_pde_gradient
+  bim2c_global_flux
 Utilities
-  BIMUbern
-  BIMUlogm
+  bimu_bernoulli
+  bimu_logm

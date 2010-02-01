@@ -1,7 +1,8 @@
-## Copyright (C) 2007,2008,2009  Carlo de Falco, Massimiliano Culpo
+## Copyright (C) 2006,2007,2008,2009,2010  Carlo de Falco, Massimiliano Culpo
 ##
-##                   BIM - Box Integration Method Package for Octave
-## 
+## This file is part of:
+##     BIM - Diffusion Advection Reaction PDE Solver
+##
 ##  BIM is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
 ##  the Free Software Foundation; either version 2 of the License, or
@@ -15,40 +16,29 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with BIM; If not, see <http://www.gnu.org/licenses/>.
 ##
-##
-##  AUTHORS:
-##
-##  Carlo de Falco <cdf _AT_ users.sourceforge.net>
-##
-##  Culpo Massimiliano
-##  Bergische Universitaet Wuppertal
-##  Fachbereich C - Mathematik und Naturwissenschaften
-##  Arbeitsgruppe fuer Angewandte MathematD-42119 Wuppertal  Gaussstr. 20 
-##  D-42119 Wuppertal, Germany
+##  author: Carlo de Falco     <cdf _AT_ users.sourceforge.net>
+##  author: Massimiliano Culpo <culpo _AT_ users.sourceforge.net>
 
 ## -*- texinfo -*-
 ##
 ## @deftypefn {Function File} @
-## {[@var{bp}, @var{bn}]} = BIMUbern (@var{x})
+## {[@var{bp}, @var{bn}]} = bimu_bernoulli (@var{x})
 ##
-## Computes the values of the Bernoulli function corresponding to x and -x arguments.
+## Compute the values of the Bernoulli function corresponding to @var{x}
+## and - @var{x} arguments. 
 ## 
-## Input:
-## @itemize @minus
-## @item @var{x}: argument for the Bernoulli function. Could be a matrix of every size.
-## @end itemize
-##
-## Output:
-## @itemize @minus
-## @item @var{bp}: Bernoulli function for x argument. Same size as @var{x}.
-## @item @var{bn}: Bernoulli function for -x argument. Same size as @var{x}.
-## @end itemize
-##
-## @seealso{BIMUlogm}
+## @seealso{bimu_logm}
 ## @end deftypefn
 
-function [bp,bn] = BIMUbern(x)
-  
+function [bp,bn] = bimu_bernoulli(x)
+
+  ## Check input
+  if nargin != 1
+    error("bimu_bernoulli: wrong number of input parameters.");
+  elseif !isnumeric(x)
+    error("bimu_bernoulli: x is not a valid numeric velus.");
+  endif
+
   xlim= 1e-2;
   ax  = abs(x);
   bp  = zeros(size(x));

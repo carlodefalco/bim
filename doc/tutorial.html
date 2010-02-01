@@ -4,7 +4,7 @@
 <body>
 
 <p>
-This is a short example on how to use <tt>BIM</tt> to solve a DAR problem.<br>
+This is a short example on how to use <tt>bim</tt> to solve a DAR problem.<br>
 The data for this example can be found in the doc directory inside the
 bim istallation directory.
 </p>
@@ -14,8 +14,8 @@ bim istallation directory.
 The geometry of the domain was created using gmsh and is stored in the file <tt>fiume.geo</tt>
 
 <p><pre>
-[mesh] = MSH2Mgmsh('fiume',1,.1);
-[mesh] = BIM2Cmeshproperties(mesh);
+[mesh] = msh2m_gmsh("fiume","scale",1,"clscale",.1);
+[mesh] = bim2c_mesh_properties(mesh);
 </pre></p>
 
 <b> Construct an initial guess</b><br>
@@ -23,10 +23,11 @@ The geometry of the domain was created using gmsh and is stored in the file <tt>
 For a linear problem only the values at boundary nodes are actually relevant<br>
 
 <p><pre>
-[xu, yu] = BIM2Cunknowncoord(mesh);
-nelem = size(mesh.t,2);
-nnodi = size(mesh.p,2);
-uin   = 3*xu;
+xu     = mesh.p(1,:);
+yu     = mesh.p(2,:);
+nelems = columns(mesh.t);
+nnodes = columns(mesh.p);
+uin    = 3*xu;
 </pre></p>
 
 <b> set the coefficients for the problem:
@@ -34,34 +35,31 @@ uin   = 3*xu;
 
 <p><pre>
 epsilon = .1;
-alfa    = ones(nelem,1);
-gamma   = ones(nnodi,1);
-eta     = epsilon*ones(nnodi,1);
+alfa    = ones(nelems,1);
+gamma   = ones(nnodes,1);
+eta     = epsilon*ones(nnodes,1);
 beta    = xu+yu;
-delta   = ones(nelem,1);
-zeta    = ones(nnodi,1);
-f       = ones(nnodi,1);
-g       = ones(nelem,1);
+delta   = ones(nelems,1);
+zeta    = ones(nnodes,1);
+f       = ones(nelems,1);
+g       = ones(nnodes,1);
 </pre></p>
 
 <b> Construct the discretized operators</b><br>
 <pre>
-AdvDiff = BIM2Aadvdiff(mesh,alfa,gamma,eta,beta);
-Mass    = BIM2Areaction(mesh,delta,zeta);
-b       = BIM2Arhs(mesh,f,g);
+AdvDiff = bim2a_advection_diffusion(mesh,alfa,gamma,eta,beta);
+Mass    = bim2a_reaction(mesh,delta,zeta);
+b       = bim2a_rhs(mesh,f,g);
 A       = AdvDiff + Mass;
 </pre></p>
-
-
-
 
 <B> To Apply Boundary Conditions, partition LHS and RHS</b><br>
 
 The tags of the sides are assigned by gmsh
 
 <p><pre>
-Dlist = BIM2Cunknownsonside(mesh, [8 18]); 	   ## DIRICHLET NODES LIST
-Nlist = BIM2Cunknownsonside(mesh, [23 24]); 	   ## NEUMANN NODES LIST
+Dlist = bim2c_unknowns_on_side(mesh, [8 18]); 	   ## DIRICHLET NODES LIST
+Nlist = bim2c_unknowns_on_side(mesh, [23 24]); 	   ## NEUMANN NODES LIST
 Nlist = setdiff(Nlist,Dlist);
 Fn    = zeros(length(Nlist),1);           	   ## PRESCRIBED NEUMANN FLUXES
 Ilist = setdiff(1:length(uin),union(Dlist,Nlist)); ## INTERNAL NODES LIST
@@ -105,19 +103,17 @@ Fd = Add * ud + Adi * ui + Adn*un - bd;
 
 <B> Compute the gradient of the solution </B><BR>
 <p><pre>
-[gx, gy] = BIM2Cpdegrad(mesh,u);
+[gx, gy] = bim2c_pde_gradient(mesh,u);
 </pre></p>
 
 <B> Compute the internal Advection-Diffusion flux</B><BR>
 <p><pre>
-[jxglob,jyglob] = BIM2Cglobalflux(mesh,u,alfa,gamma,eta,beta);
+[jxglob,jyglob] = bim2c_global_flux(mesh,u,alfa,gamma,eta,beta);
 </pre></p>
 
-<B> Visulaization</B><BR>
+<B> Save data for later visualization</B><BR>
 <p><pre>
-FPL2pdesurf(mesh,u);
-FPL2quiver(mesh,jxglob,jyglob,"sample_density","1000");
-FPL2quiver(mesh,gx,gy,"sample_density","1000");
+fpl_dx_write_field("dxdata",mesh,[gx gy],"Gradient",1,2,1);
 </pre></p>
 
 </body>
