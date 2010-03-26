@@ -5,7 +5,7 @@ Author: Carlo de Falco, Culpo Massimiliano
 Maintainer: Culpo Massimiliano
 Title: PDE Solver using a Finite Element/Finite Volume approach
 Description: Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations based on the Finite Volume Scharfetter-Gummel (FVSG) method a.k.a Box Integration Method (BIM)
-Depends: octave (>= 3.0.0), fpl, msh 
+Depends: octave (>= 3.2.0), fpl, msh 
 Autoload: no
 License: GPL version 2 or later
 SVNRelease: 6866

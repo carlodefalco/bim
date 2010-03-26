@@ -23,8 +23,8 @@ The geometry of the domain was created using gmsh and is stored in the file <tt>
 For a linear problem only the values at boundary nodes are actually relevant<br>
 
 <p><pre>
-xu     = mesh.p(1,:);
-yu     = mesh.p(2,:);
+xu     = mesh.p(1,:).';
+yu     = mesh.p(2,:).';
 nelems = columns(mesh.t);
 nnodes = columns(mesh.p);
 uin    = 3*xu;
@@ -93,6 +93,9 @@ ui = uin(Ilist);
 temp = [Ann Ani ; Ain Aii ] \ [ Fn+bn-And*ud ; bi-Aid*ud];
 un   = temp(1:length(un));
 ui   = temp(length(un)+1:end);
+u(Dlist) = ud;
+u(Ilist) = ui;
+u(Nlist) = un;
 </pre></p>
 
 <b> Compute the fluxes through Dirichlet sides</b><br>
@@ -113,7 +116,8 @@ Fd = Add * ud + Adi * ui + Adn*un - bd;
 
 <B> Save data for later visualization</B><BR>
 <p><pre>
-fpl_dx_write_field("dxdata",mesh,[gx gy],"Gradient",1,2,1);
+fpl_dx_write_field("dxdata",mesh,[gx; gy]',"Gradient",1,2,1);
+fpl_vtk_write_field ("vtkdata", mesh, {}, {[gx; gy]', "Gradient"}, 1);
 </pre></p>
 
 </body>
