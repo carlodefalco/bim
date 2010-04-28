@@ -35,8 +35,6 @@ function [bp,bn] = bimu_bernoulli(x)
   ## Check input
   if nargin != 1
     error("bimu_bernoulli: wrong number of input parameters.");
-  elseif !isnumeric(x)
-    error("bimu_bernoulli: x is not a valid numeric velus.");
   endif
 
   xlim= 1e-2;
