@@ -88,8 +88,7 @@ function [A] = bim3a_laplacian (mesh,epsilon,kappa)
     for jnode = 1:4
       ginode(inode,jnode,:) = mesh.t(inode,:);
       gjnode(inode,jnode,:) = mesh.t(jnode,:);
-      Lloc(inode,jnode,:)   = \
-	  sum( kappa(inode) * shg(:,inode,:) .* shg(:,jnode,:),1) .* epsilonareak;
+      Lloc(inode,jnode,:)   = sum( kappa(inode) * shg(:,inode,:) .* shg(:,jnode,:),1) .* epsilonareak;
     endfor
   endfor
 
