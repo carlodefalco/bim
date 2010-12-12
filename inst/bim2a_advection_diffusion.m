@@ -128,8 +128,7 @@ function [A] = bim2a_advection_diffusion(mesh,alpha,gamma,eta,beta)
     for jnode = 1:3
       ginode(inode,jnode,:) = mesh.t(inode,:);
       gjnode(inode,jnode,:) = mesh.t(jnode,:);
-      Lloc(inode,jnode,:)   = \
-	  sum( shg(:,inode,:) .* shg(:,jnode,:),1) .* alphaareak;
+      Lloc(inode,jnode,:)   = sum( shg(:,inode,:) .* shg(:,jnode,:),1) .* alphaareak;
     endfor
   endfor
   
