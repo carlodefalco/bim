@@ -63,7 +63,7 @@ function [A] = bim3a_laplacian (mesh,epsilon,kappa)
 
   ## Turn scalar input to a vector of appropriate size
   if isscalar(epsilon)
-    epsilon  = espilon*ones(nelem,1);
+    epsilon  = epsilon * ones(nelem,1);
   endif
   if isscalar(kappa)
     kappa = kappa*ones(nnodes,1);
