@@ -22,7 +22,7 @@
 ##
 ## @deftypefn {Function File} @
 ## {[@var{A}]} = @
-## bim3a_advection_diffusion(@var{mesh},@var{alpha}, @var{v})
+## bim3a_advection_diffusion (@var{mesh}, @var{alpha}, @var{v})
 ##
 ## Build the Scharfetter-Gummel stabilized stiffness matrix for a
 ## diffusion-advection problem. 
@@ -70,7 +70,7 @@ function SG = bim3a_advection_diffusion (mesh, acoeff, v)
     endfor
   endfor	
 
-  vloc = v(t(:,iel));
+  vloc = v(t(1:4, :));
   [bp12,bm12] = bimu_bernoulli (vloc(2,:)-vloc(1,:));
   [bp13,bm13] = bimu_bernoulli (vloc(3,:)-vloc(1,:));
   [bp14,bm14] = bimu_bernoulli (vloc(4,:)-vloc(1,:));

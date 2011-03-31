@@ -21,7 +21,7 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {[@var{b}]} = @
-## bim3a_rhs(@var{mesh},@var{f},@var{g}) 
+## bim3a_rhs (@var{mesh}, @var{f}, @var{g}) 
 ##
 ## Build the finite element right-hand side of a diffusion problem
 ## employing mass-lumping.
@@ -57,8 +57,8 @@ function [b] = bim3a_rhs (mesh,f,g);
     error("bim3a_rhs: first input is not a valid mesh structure.");
   endif
 
-  nnodes    = length(p);
-  nelem     = length(t);
+  nnodes    = columns (mesh.p);
+  nelem     = length (mesh.t);
 
   ## Turn scalar input to a vector of appropriate size
   if isscalar(f)
