@@ -2,6 +2,7 @@ BIM >> BIM - Diffusion Advection Reaction PDE Solver
 Matrix assembly
   bim1a_advection_diffusion
   bim2a_advection_diffusion
+  bim3a_advection_diffusion
   bim1a_laplacian
   bim2a_laplacian
   bim3a_laplacian
