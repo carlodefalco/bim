@@ -26,7 +26,6 @@
 ## If repeatedly performing interpolation on the same mesh the matrix @var{m_tri} obtained by a previous call 
 ## to @code{bim2c_tri_to_nodes} may be passed as input to avoid unnecessary computations.
 ##
-## @seealso{}
 ## @end deftypefn
 
 
