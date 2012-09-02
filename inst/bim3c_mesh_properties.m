@@ -29,29 +29,28 @@
 ## @seealso{bim3a_reaction, bim3a_rhs, bim3a_laplacian}
 ## @end deftypefn
 
-function [omesh] = bim3c_mesh_properties(imesh)
+function [omesh] = bim3c_mesh_properties (imesh)
 
   ## Check input  
   if nargin != 1
     error("bim3c_mesh_properties: wrong number of input parameters.");
-  elseif !(isstruct(imesh)     && isfield(imesh,"p") &&
-	   isfield (imesh,"t") && isfield(imesh,"e"))
-    error("bim3c_mesh_properties: first input is not a valid mesh structure.");
+  elseif (! isstruct (imesh) || any (! isfield (imesh, {"p", "e", "t"}))) 
+    error ("bim3c_mesh_properties: first input is not a valid mesh structure.");
   endif
 
   ## Compute properties
   omesh = imesh;
-  [omesh.wjacdet,omesh.area,omesh.shg,omesh.shp] = \
-      msh3m_geometrical_properties(imesh,"wjacdet","area","shg","shp");
+  [omesh.wjacdet,omesh.area,omesh.shg,omesh.shp] = ...
+      msh3m_geometrical_properties (imesh, "wjacdet", "area", "shg", "shp");
 
 endfunction
 
 %!shared mesh
 % x = y = z = linspace(0,1,4);
-% [mesh] = msh3m_structured_mesh(x,y,z,1,1:6);
-% [mesh] = bim3c_mesh_properties(mesh);
+% mesh = msh3m_structured_mesh(x,y,z,1,1:6);
+% mesh = bim3c_mesh_properties (mesh);
 %!test
-% tmp = msh3m_geometrical_properties(mesh,"wjacdet");
+% tmp = msh3m_geometrical_properties (mesh, "wjacdet");
 % assert(mesh.wjacdet,tmp);
 %!test
 % tmp = msh3m_geometrical_properties(mesh,"shg");
