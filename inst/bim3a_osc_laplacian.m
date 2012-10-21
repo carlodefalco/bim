@@ -30,17 +30,7 @@
 ##
 ## The equation taken into account is:
 ##
-## @iftex 
-## @tex
-## $ -( \varepsilon  \kappa  ( u' ))' = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
-## - (@var{epsilon} ( u' ))' = f
-## @end ifinfo
-## @ifhtml
-## - (@var{epsilon} ( u' ))' = f
-## @end ifhtml
+## - div (@var{epsilon} grad (u)) = f
 ## 
 ## where @var{epsilon} is an element-wise constant scalar function,
 ## while @var{kappa} is a piecewise linear conforming scalar function.

@@ -29,17 +29,7 @@
 ## 
 ## The equation taken into account is:
 ##
-## @iftex 
-## @tex
-## $ (\vect{beta} u )' = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
-## (@var{beta} u )' = f
-## @end ifinfo
-## @ifhtml
-## (@var{beta} u )' = f
-## @end ifhtml
+## div (@var{beta} u) = f
 ##
 ## where @var{beta} is an element-wise constant vector function.
 ##

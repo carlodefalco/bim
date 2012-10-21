@@ -28,17 +28,7 @@
 ##
 ## The vector field is defined as:
 ##
-## @iftex 
-## @tex
-## $ \vect{J}(u) = \alpha \gamma (\eta\vect{\nabla}u-\vect{beta}u) $
-## @end tex 
-## @end iftex 
-## @ifinfo
 ## J(@var{u}) = @var{alpha}* @var{gamma} * (@var{eta} * grad @var{u} - @var{beta} * @var{u}))
-## @end ifinfo
-## @ifhtml
-## J(@var{u}) = @var{alpha}* @var{gamma} * (@var{eta} * grad @var{u} - @var{beta} * @var{u}))
-## @end ifhtml
 ## 
 ## where @var{alpha} is an element-wise constant scalar function,
 ## @var{eta} and @var{gamma} are piecewise linear conforming scalar

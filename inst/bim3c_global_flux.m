@@ -1,4 +1,4 @@
-## Copyright (C) 2010  Carlo de Falco
+## Copyright (C) 2012  Carlo de Falco
 ##
 ## This file is part of:
 ##     BIM - Diffusion Advection Reaction PDE Solver
@@ -29,17 +29,7 @@
 ##
 ## The vector field is defined as:
 ##
-## @iftex 
-## @tex
-## $F = - \alpha ( u' - \nabla v u )  $
-## @end tex 
-## @end iftex 
-## @ifinfo
-## F =- @var{alpha} ( u' - @var{v}' u ) 
-## @end ifinfo
-## @ifhtml
-## F =- @var{alpha} ( u' - @var{v}' u )
-## @end ifhtml
+## F =- @var{alpha} ( grad (u) - gard (@var{v}) u ) 
 ##
 ## where @var{v} is a piecewise linear continuous scalar
 ## functions and @var{alpha} is a piecewise constant scalar function.

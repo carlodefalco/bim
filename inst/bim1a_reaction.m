@@ -28,17 +28,7 @@
 ##
 ## The equation taken into account is:
 ##
-## @iftex 
-## @tex
-## $ \delta \zeta u = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
 ## @var{delta} * @var{zeta} * u = f
-## @end ifinfo
-## @ifhtml
-## @var{delta} * @var{zeta} * u = f
-## @end ifhtml
 ## 
 ## where @var{delta} is an element-wise constant scalar function, while
 ## @var{zeta} is a piecewise linear conforming scalar function.

@@ -28,17 +28,7 @@
 ## 
 ## The equation taken into account is:
 ##
-## @iftex 
-## @tex
-## $ (\vect{beta} u)' = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
 ##  (@var{beta} u)' = f
-## @end ifinfo
-## @ifhtml
-## (@var{beta} u ))' = f
-## @end ifhtml
 ##
 ## where @var{beta} is an element-wise constant.
 ##
@@ -49,8 +39,7 @@
 ## If @var{phi} is a single scalar value @var{beta} is assumed to be 0
 ## in the whole domain. 
 ##
-## @seealso{bim1a_rhs, bim1a_reaction, bim1a_laplacian,
-## bim2a_advection_diffusion} 
+## @seealso{bim1a_rhs, bim1a_reaction, bim1a_laplacian, bim2a_advection_diffusion} 
 ## @end deftypefn
 
 function A = bim1a_advection_upwind (x, beta)

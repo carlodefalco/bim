@@ -32,7 +32,7 @@
 ## Author: Carlo de Falco <carlo@guglielmo.local>
 ## Created: 2011-03-07
 
-function [u_nod, m_tri] = bim2c_tri_to_nodes (m, u_tri)
+function [u_nod, m_tri] = bim3c_tri_to_nodes (m, u_tri)
 
   if (nargout >1)
     if (isstruct (m))

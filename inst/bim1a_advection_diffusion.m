@@ -30,17 +30,7 @@
 ## 
 ## The equation taken into account is:
 ##
-## @iftex 
-## @tex
-## $ - ( \alpha  \gamma  ( \eta  u' - \vect{beta} u ))' = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
-## - (@var{alpha} * @var{gamma} (@var{eta} u' - @var{beta} u ))' = f
-## @end ifinfo
-## @ifhtml
-## - (@var{alpha} * @var{gamma} (@var{eta} u' - @var{beta} u ))' = f
-## @end ifhtml
+## - div (@var{alpha} * @var{gamma} (@var{eta} grad (u) - @var{beta} u)) = f
 ##
 ## where @var{alpha} is an element-wise constant scalar function,
 ## @var{eta} and @var{gamma} are piecewise linear conforming scalar
@@ -53,8 +43,7 @@
 ## If @var{phi} is a single scalar value @var{beta} is assumed to be 0
 ## in the whole domain. 
 ##
-## @seealso{bim1a_rhs, bim1a_reaction, bim1a_laplacian,
-## bim2a_advection_diffusion} 
+## @seealso{bim1a_rhs, bim1a_reaction, bim1a_laplacian, bim2a_advection_diffusion} 
 ## @end deftypefn
 
 function A = bim1a_advection_diffusion (x,alpha,gamma,eta,beta)

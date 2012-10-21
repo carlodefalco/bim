@@ -28,17 +28,7 @@
 ##
 ## The equation taken into account is:
 ##
-## @iftex 
-## @tex
-## $ \delta u = f g$
-## @end tex 
-## @end iftex 
-## @ifinfo
 ## @var{delta} * u = f * g
-## @end ifinfo
-## @ifhtml
-## @var{delta} * u = f * g
-## @end ifhtml
 ## 
 ## where @var{f} is an element-wise constant scalar function, while
 ## @var{g} is a piecewise linear conforming scalar function.

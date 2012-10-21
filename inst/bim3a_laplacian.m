@@ -28,17 +28,7 @@
 ##
 ## The equation taken into account is:
 ##
-## @iftex 
-## @tex
-## $ -( \varepsilon  \kappa  ( u' ))' = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
 ## - (@var{epsilon} * @var{kappa} ( u' ))' = f
-## @end ifinfo
-## @ifhtml
-## - (@var{epsilon} * @var{kappa} ( u' ))' = f
-## @end ifhtml
 ## 
 ## where @var{epsilon} is an element-wise constant scalar function,
 ## while @var{kappa} is a piecewise linear conforming scalar function.

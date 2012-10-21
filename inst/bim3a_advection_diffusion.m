@@ -29,17 +29,7 @@
 ## 
 ## The equation taken into account is:
 ##
-## @iftex 
-## @tex
-## $ - ( \alpha ( u' - \nabla v u ))' = f $
-## @end tex 
-## @end iftex 
-## @ifinfo
-## - (@var{alpha} ( u' - @var{v}' u ))' = f
-## @end ifinfo
-## @ifhtml
-## - (@var{alpha} ( u' - @var{v}' u ))' = f
-## @end ifhtml
+## - div (@var{alpha} ( grad (u) - grad (@var{v}) u)) = f
 ##
 ## where @var{v} is a piecewise linear continuous scalar
 ## functions and @var{alpha} is a piecewise constant scalar function.
