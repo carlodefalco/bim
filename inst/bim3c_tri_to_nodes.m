@@ -16,11 +16,11 @@
 
 ## -*- texinfo -*-
 ##
-## @deftypefn {Function File} {@var{u_nod}} = bim2c_tri_to_nodes (@var{mesh}, @var{u_tri}) 
-## @deftypefnx {Function File} {@var{u_nod}} = bim2c_tri_to_nodes (@var{m_tri}, @var{u_tri}) 
-## @deftypefnx {Function File} {[@var{u_nod}, @var{m_tri}]} = bim2c_tri_to_nodes ( ... ) 
+## @deftypefn {Function File} {@var{u_nod}} = bim3c_tri_to_nodes (@var{mesh}, @var{u_tri}) 
+## @deftypefnx {Function File} {@var{u_nod}} = bim3c_tri_to_nodes (@var{m_tri}, @var{u_tri}) 
+## @deftypefnx {Function File} {[@var{u_nod}, @var{m_tri}]} = bim3c_tri_to_nodes ( ... ) 
 ##
-## Compute interpolated values at triangle nodes @var{u_nod} given values at triangle mid-points @var{u_tri}.
+## Compute interpolated values at triangle nodes @var{u_nod} given values at tetrahedral centers of mass @var{u_tri}.
 ## If called with more than one output, also return the interpolation matrix @var{m_tri} such that
 ## @code{u_nod = m_tri * u_tri}.
 ## If repeatedly performing interpolation on the same mesh the matrix @var{m_tri} obtained by a previous call 
@@ -46,12 +46,12 @@ function [u_nod, m_tri] = bim2c_tri_to_nodes (m, u_tri)
     elseif (m)
       m_tri = m;
     else
-      error ("bim2c_tri_to_nodes: first input parameter is of incorrect type");
+      error ("bim3c_tri_to_nodes: first input parameter is of incorrect type");
     endif
     u_nod = m_tri * u_tri;
   else
-    rhs  = bim2a_rhs (m, u_tri, 1);
-    mass = bim2a_reaction (m, 1, 1);
+    rhs  = bim3a_rhs (m, u_tri, 1);
+    mass = bim3a_reaction (m, 1, 1);
     u_nod = full (mass \ rhs);
   endif
 
@@ -59,10 +59,10 @@ function [u_nod, m_tri] = bim2c_tri_to_nodes (m, u_tri)
 endfunction
 
 %!test
-%! msh = bim2c_mesh_properties (msh2m_structured_mesh (linspace (0, 1, 31), linspace (0, 1, 13), 1, 1:4, "random"));
+%! msh = bim3c_mesh_properties (msh2m_structured_mesh (linspace (0, 1, 31), linspace (0, 1, 13), linspace (0, 1, 13), 1, 1:6));
 %! nel  = columns (msh.t);
 %! nnod = columns (msh.p);
 %! u_tri = randn (nel, 1);
-%! un1 = bim2c_tri_to_nodes (msh, u_tri);
-%! [un2, m] = bim2c_tri_to_nodes (msh, u_tri);
+%! un1 = bim3c_tri_to_nodes (msh, u_tri);
+%! [un2, m] = bim3c_tri_to_nodes (msh, u_tri);
 %! assert (un1, un2, 1e-10)

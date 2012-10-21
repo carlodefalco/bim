@@ -51,8 +51,8 @@
 function SG = bim3a_advection_diffusion (mesh, acoeff, v)
 
   t = mesh.t;
-
-  nelem = columns(mesh.t);
+  nnodes = columns (mesh.p);
+  nelem = columns(t);
 
   ## Local contributions
   Lloc = zeros(4,4,nelem);
@@ -119,7 +119,7 @@ function SG = bim3a_advection_diffusion (mesh, acoeff, v)
   Sloc(4,4,:) = -bp14-bp24-bp34;
 
   ## assemble global matrix
-  SG = sparse(ginode(:),gjnode(:),Sloc(:));	
+  SG = sparse(ginode(:),gjnode(:),Sloc(:), nnodes, nnodes);
 
 endfunction	
 
