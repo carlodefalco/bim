@@ -211,7 +211,7 @@ endfunction
 %! if (fid < 0); error (msg); endif
 %! fputs (fid, gmsh_input);
 %! fclose (fid); 
-%! msh = bim3c_mesh_properties (msh3m_gmsh ("tubo", "clscale", ".25"));
+%! msh = bim3c_mesh_properties (msh3m_gmsh (fname, "clscale", ".25"));
 %! x = msh.p (1, :).';
 %! u = x;
 %! bnd = bim3c_unknowns_on_faces (msh, [14, 16]);
@@ -264,12 +264,12 @@ endfunction
 %! ["Ruled Surface(24) = {23};                    \n"], ...
 %! ["Surface Loop(25) = {18, 20, 22, 16, 24, 14}; \n"], ...
 %! ["Volume(26) = {25};                           \n"]];
-%! fname = tmpnam ();
+%! fname = tmpnam (); 
 %! [fid, msg] = fopen (strcat (fname, ".geo"), "w");
 %! if (fid < 0); error (msg); endif
 %! fputs (fid, gmsh_input);
 %! fclose (fid); 
-%! msh = bim3c_mesh_properties (msh3m_gmsh ("tubo", "clscale", ".25"));
+%! msh = bim3c_mesh_properties (msh3m_gmsh (fname, "clscale", ".25"));
 %! x = msh.p (1, :).';
 %! u = x;
 %! bnd = bim3c_unknowns_on_faces (msh, [14, 16]);

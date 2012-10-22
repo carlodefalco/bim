@@ -7,4 +7,4 @@ Title: PDE Solver using a Finite Element/Finite Volume approach
 Description: Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations 
 Depends: octave (>= 3.6.0), fpl, msh 
 Autoload: no
-License: GPL version 2 or later
+License: GPLv2+
