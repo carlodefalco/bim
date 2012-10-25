@@ -27,6 +27,8 @@ Pre-processing and Post-processing computations
   bim3c_global_flux
   bim2c_tri_to_nodes
   bim3c_tri_to_nodes
+  bim2c_intrp
+  bim3c_intrp
 Utilities
   bimu_bernoulli
   bimu_logm

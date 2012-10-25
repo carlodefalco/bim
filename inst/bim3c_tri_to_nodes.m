@@ -1,4 +1,4 @@
-## Copyright (C) 2011 Carlo de Falco
+## Copyright (C) 2011, 2012 Carlo de Falco
 ## 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -38,12 +38,11 @@ function [u_nod, m_tri] = bim3c_tri_to_nodes (m, u_tri)
     if (isstruct (m))
       nel  = columns (m.t);
       nnod = columns (m.p);
-      m_tri = spalloc (nnod, nel, 3 * nel);
-      for iel = 1:nel
-        m_tri(m.t(1:3, iel), iel) = m.area(iel);
-      endfor
-      m_tri = diag (sum (m_tri, 2)) \ m_tri;
-    elseif (m)
+      ii = m.t(1:4, :);
+      jj = repmat (1:nel, 4, 1);
+      vv = repmat (m.area(:)', 4, 1) / 4;
+      m_tri = bim3a_reaction (m, 1, 1) \ sparse (ii, jj, vv, nnod, nel);     
+    elseif (ismatrix (m))
       m_tri = m;
     else
       error ("bim3c_tri_to_nodes: first input parameter is of incorrect type");
@@ -59,7 +58,7 @@ function [u_nod, m_tri] = bim3c_tri_to_nodes (m, u_tri)
 endfunction
 
 %!test
-%! msh = bim3c_mesh_properties (msh2m_structured_mesh (linspace (0, 1, 31), linspace (0, 1, 13), linspace (0, 1, 13), 1, 1:6));
+%! msh = bim3c_mesh_properties (msh3m_structured_mesh (linspace (0, 1, 31), linspace (0, 1, 13), linspace (0, 1, 13), 1, 1:6));
 %! nel  = columns (msh.t);
 %! nnod = columns (msh.p);
 %! u_tri = randn (nel, 1);

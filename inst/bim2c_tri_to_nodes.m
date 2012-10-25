@@ -38,12 +38,11 @@ function [u_nod, m_tri] = bim2c_tri_to_nodes (m, u_tri)
     if (isstruct (m))
       nel  = columns (m.t);
       nnod = columns (m.p);
-      m_tri = spalloc (nnod, nel, 3 * nel);
-      for iel = 1:nel
-        m_tri(m.t(1:3, iel), iel) = m.area(iel);
-      endfor
-      m_tri = diag (sum (m_tri, 2)) \ m_tri;
-    elseif (m)
+      ii = m.t(1:3, :);
+      jj = repmat (1:nel, 3, 1);
+      vv = repmat (m.area(:)', 3, 1) / 3;
+      m_tri = bim2a_reaction (m, 1, 1) \ sparse (ii, jj, vv, nnod, nel); 
+    elseif (ismatrix (m))
       m_tri = m;
     else
       error ("bim2c_tri_to_nodes: first input parameter is of incorrect type");
@@ -59,7 +58,7 @@ function [u_nod, m_tri] = bim2c_tri_to_nodes (m, u_tri)
 endfunction
 
 %!test
-%! msh = bim2c_mesh_properties (msh2m_structured_mesh (linspace (0, 1, 31), linspace (0, 1, 13), 1, 1:4, "random"));
+%! msh = bim2c_mesh_properties (msh2m_structured_mesh (linspace (0, 1, 3), linspace (0, 1, 3), 1, 1:4, "random"));
 %! nel  = columns (msh.t);
 %! nnod = columns (msh.p);
 %! u_tri = randn (nel, 1);
