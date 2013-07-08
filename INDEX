@@ -23,6 +23,7 @@ Pre-processing and Post-processing computations
   bim2c_unknowns_on_side
   bim3c_unknowns_on_faces
   bim2c_pde_gradient
+  bim3c_pde_gradient
   bim2c_global_flux
   bim3c_global_flux
   bim2c_tri_to_nodes

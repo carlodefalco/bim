@@ -72,7 +72,7 @@
 ## @seealso{bim2a_rhs, bim2a_reaction, bim2c_mesh_properties}
 ## @end deftypefn
 
-function [A] = bim2a_advection_diffusion(mesh,alpha,gamma,eta,beta)
+function [A] = bim2a_advection_diffusion (mesh, alpha, gamma, eta, beta)
 
   ## Check input
   if nargin != 5
@@ -157,13 +157,13 @@ function [A] = bim2a_advection_diffusion(mesh,alpha,gamma,eta,beta)
   gammaloc = gamma(mesh.t(1:3,:));
   geloc    = gammaloc.*etaloc;
   
-  gelocm1 = bimu_logm(geloc(2,:),geloc(3,:));
-  gelocm2 = bimu_logm(geloc(3,:),geloc(1,:));
-  gelocm3 = bimu_logm(geloc(1,:),geloc(2,:));
+  gelocm1 = bimu_logm (geloc(2,:), geloc(3,:));
+  gelocm2 = bimu_logm (geloc(3,:), geloc(1,:));
+  gelocm3 = bimu_logm (geloc(1,:), geloc(2,:));
   
-  [bp12,bm12] = bimu_bernoulli( (v12 - eta12)./etalocm3);
-  [bp23,bm23] = bimu_bernoulli( (v23 - eta23)./etalocm1);
-  [bp31,bm31] = bimu_bernoulli( (v31 - eta31)./etalocm2);
+  [bp12,bm12] = bimu_bernoulli ((v12 - eta12) ./ etalocm3);
+  [bp23,bm23] = bimu_bernoulli ((v23 - eta23) ./ etalocm1);
+  [bp31,bm31] = bimu_bernoulli ((v31 - eta31) ./ etalocm2);
   
   bp12 = reshape(gelocm3.*etalocm3.*bp12,1,1,nelem).*Lloc(1,2,:);
   bm12 = reshape(gelocm3.*etalocm3.*bm12,1,1,nelem).*Lloc(1,2,:);
