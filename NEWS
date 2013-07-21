@@ -1,6 +1,13 @@
 Summary of important user-visible changes for bim 1.1.1:
 -------------------------------------------------------------------
 
+ ** Fixed a bug in 1d upwind discretization.
+
+ ** Added function to compute gradient of a 3d scalar field.
+
+Summary of important user-visible changes for bim 1.1.1:
+-------------------------------------------------------------------
+
  ** Added new functions to perform interpolation at arbitrary nodes.
 
 Summary of important user-visible changes for bim 1.1.0:
