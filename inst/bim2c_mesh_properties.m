@@ -41,7 +41,7 @@ function [omesh] = bim2c_mesh_properties(imesh)
   endif
 
   omesh = imesh;
-  [omesh.wjacdet,omesh.area,omesh.shg] = \
+  [omesh.wjacdet,omesh.area,omesh.shg] = ...
       msh2m_geometrical_properties(imesh,"wjacdet","area","shg");
 
 endfunction
