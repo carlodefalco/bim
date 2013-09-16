@@ -17,6 +17,7 @@ Matrix assembly
   bim2a_rhs
   bim3a_rhs
   bim2a_boundary_mass
+  bim3a_boundary_mass
 Pre-processing and Post-processing computations
   bim2c_mesh_properties
   bim3c_mesh_properties

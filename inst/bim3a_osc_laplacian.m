@@ -32,8 +32,7 @@
 ##
 ## - div (@var{epsilon} grad (u)) = f
 ## 
-## where @var{epsilon} is an element-wise constant scalar function,
-## while @var{kappa} is a piecewise linear conforming scalar function.
+## where @var{epsilon} is an element-wise constant scalar function.
 ##
 ## @seealso{bim3a_rhs, bim3a_reaction, bim2a_laplacian, bim3a_laplacian}
 ## @end deftypefn
@@ -47,7 +46,7 @@ function M = bim3a_osc_laplacian (msh, epsilon)
              && isfield (msh, "p") 
              && isfield (msh, "t") 
              && isfield (msh, "e")))
-    error (["bim3a_laplacian: first input ", ...
+    error (["bim3a_osc_laplacian: first input ", ...
             "is not a valid msh structure"]);
   endif
 

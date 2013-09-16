@@ -34,13 +34,13 @@
 
 function [u_nod, m_tri] = bim2c_tri_to_nodes (m, u_tri)
 
-  if (nargout >1)
+  if (nargout > 1)
     if (isstruct (m))
-      nel  = columns (m.t);
-      nnod = columns (m.p);
-      ii = m.t(1:3, :);
-      jj = repmat (1:nel, 3, 1);
-      vv = repmat (m.area(:)', 3, 1) / 3;
+      nel   = columns (m.t);
+      nnod  = columns (m.p);
+      ii    = m.t(1:3, :);
+      jj    = repmat (1:nel, 3, 1);
+      vv    = repmat (m.area(:)', 3, 1) / 3;
       m_tri = bim2a_reaction (m, 1, 1) \ sparse (ii, jj, vv, nnod, nel); 
     elseif (ismatrix (m))
       m_tri = m;
@@ -49,11 +49,16 @@ function [u_nod, m_tri] = bim2c_tri_to_nodes (m, u_tri)
     endif
     u_nod = m_tri * u_tri;
   else
-    rhs  = bim2a_rhs (m, u_tri, 1);
-    mass = bim2a_reaction (m, 1, 1);
-    u_nod = full (mass \ rhs);
+    if (isstruct (m))
+      rhs   = bim2a_rhs (m, u_tri, 1);
+      mass  = bim2a_reaction (m, 1, 1);
+      u_nod = full (mass \ rhs);
+    elseif (ismatrix (m))
+      u_nod = m * u_tri;
+    else
+      error ("bim2c_tri_to_nodes: first input parameter is of incorrect type");
+    endif
   endif
-
 
 endfunction
 
