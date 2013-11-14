@@ -65,6 +65,9 @@ function M = bim3a_osc_laplacian (msh, epsilon)
             "not equal to the number of mesh elements"]);
   endif
 
+  ## Avoid warnings for broadcasting
+  warning ("off", "Octave:broadcast", "local")
+
   ## Local contributions
   Lloc = __osc_local_laplacian__ (msh.p, msh.t, msh.shg, 
                                   epsilon, msh.area, nnodes, 
