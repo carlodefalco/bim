@@ -1,3 +1,15 @@
+Summary of important user-visible changes for bim 1.1.3:
+-------------------------------------------------------------------
+
+ ** Added new projection functions 
+
+ ** A function for the generation of 3D boundary matrices has been added that
+    can be used in the implementation of Robin boundary condition and interface
+    conditions.
+ 
+ ** Added a set of functions for the computation of inf, L2 and H1 norms of 
+    piecewise constant and elementwise constant functions.
+
 Summary of important user-visible changes for bim 1.1.2:
 -------------------------------------------------------------------
 

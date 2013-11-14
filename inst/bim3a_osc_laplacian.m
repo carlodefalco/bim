@@ -59,9 +59,9 @@ function M = bim3a_osc_laplacian (msh, epsilon)
   endif
 
   if (! isvector (epsilon))
-    error ("bim3a_laplacian: coefficient is not a vector");
+    error ("bim3a_osc_laplacian: coefficient is not a vector");
   elseif (numel (epsilon) != nelem)
-    error (["bim3a_laplacian: length of epsilon is ", ...
+    error (["bim3a_osc_laplacian: length of epsilon is ", ...
             "not equal to the number of mesh elements"]);
   endif
 

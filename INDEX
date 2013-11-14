@@ -27,10 +27,14 @@ Pre-processing and Post-processing computations
   bim3c_pde_gradient
   bim2c_global_flux
   bim3c_global_flux
+  bim1c_elem_to_nodes
   bim2c_tri_to_nodes
   bim3c_tri_to_nodes
   bim2c_intrp
   bim3c_intrp
+  bim1c_norm
+  bim2c_norm
+  bim3c_norm
 Utilities
   bimu_bernoulli
   bimu_logm
