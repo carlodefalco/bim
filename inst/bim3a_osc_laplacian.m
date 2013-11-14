@@ -66,7 +66,9 @@ function M = bim3a_osc_laplacian (msh, epsilon)
   endif
 
   ## Local contributions
-  Lloc = __osc_local_laplacian__ (msh.p, msh.t, msh.shg, epsilon, msh.area, nnodes, nelem);
+  Lloc = __osc_local_laplacian__ (msh.p, msh.t, msh.shg, 
+                                  epsilon, msh.area, nnodes, 
+                                  nelem);
 
   ## Assembly
   for inode = 1:4

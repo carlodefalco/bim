@@ -47,8 +47,9 @@ function [norm_u] = bim2c_norm (m, u, norm_type)
   ## Check input  
   if (nargin != 3)
     error ("bim2c_norm: wrong number of input parameters.");
-  elseif (! (isstruct (m) && isfield (m,"p")) && isfield (m, "t") 
-          && isfield (m, "e"))
+  elseif (! (isstruct (m) && isfield (m,"p")
+          && isfield (m, "t") 
+          && isfield (m, "e")))
     error ("bim2c_norm: first input is not a valid mesh structure.");
   endif
 
@@ -63,8 +64,9 @@ function [norm_u] = bim2c_norm (m, u, norm_type)
     error ("bim2c_norm: length(u) != nnodes and rows(u) != nel.");
   endif
   
-  if !(strcmp (norm_type,'L2') || strcmp (norm_type,'inf') || 
-       strcmp (norm_type,'H1')) 
+  if (! (strcmp (norm_type,'L2') 
+         || strcmp (norm_type,'inf') 
+         || strcmp (norm_type,'H1'))) 
     error ("bim2c_norm: invalid norm type parameter.");
   endif
 
@@ -85,7 +87,8 @@ function [norm_u] = bim2c_norm (m, u, norm_type)
     else
 
       if (strcmp (norm_type, 'H1'))
-        error ("bim2c_norm: cannot compute the H1 norm of an elementwise constant function.");
+        error (["bim2c_norm: cannot compute the H1 norm ", ... 
+                "of an elementwise constant function."]);
       endif
       
       norm_u = m.area' * (norm (u, 2, 'rows').^2);      

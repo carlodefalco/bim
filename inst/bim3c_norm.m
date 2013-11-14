@@ -48,8 +48,8 @@ function [norm_u] = bim3c_norm (m, u, norm_type)
   ## Check input  
   if (nargin != 3)
     error ("bim3c_norm: wrong number of input parameters.");
-  elseif (! (isstruct (m) && isfield (m,"p")) && isfield (m, "t") 
-          && isfield (m, "e"))
+  elseif (! (isstruct (m) && isfield (m,"p")) 
+          && isfield (m, "t") && isfield (m, "e"))
     error ("bim3c_norm: first input is not a valid mesh structure.");
   endif
 
@@ -64,8 +64,9 @@ function [norm_u] = bim3c_norm (m, u, norm_type)
     error ("bim3c_norm: length(u) != nnodes and rows(u) != nel.");
   endif
   
-  if !(strcmp (norm_type,'L2') || strcmp (norm_type,'inf') || 
-       strcmp (norm_type,'H1')) 
+  if (! (strcmp (norm_type,'L2')
+         || strcmp (norm_type,'inf') 
+         || strcmp (norm_type,'H1')))
     error ("bim3c_norm: invalid norm type parameter.");
   endif
 
@@ -86,7 +87,8 @@ function [norm_u] = bim3c_norm (m, u, norm_type)
     else
 
       if (strcmp (norm_type, 'H1'))
-        error ("bim3c_norm: cannot compute the H1 norm of an elementwise constant function.");
+        error (["bim3c_norm: cannot compute the H1 norm", ... 
+                "of an elementwise constant function."]);
       endif
       
       norm_u = m.area * (norm (u', 2, 'cols').^2)';      
@@ -108,7 +110,11 @@ function M = __mass_matrix__ (mesh)
   l1 = (1 - 3*b)^2 + 3*(1 - 2*b - a)^2;
   l2 = (1 - 3*b)*b + (1 - 2*b - a)*(a + 2*b);
   
-  Mref = 1/4 * [l1 l2 l2 l2; l2 l1 l2 l2; l2 l2 l1 l2; l2 l2 l2 l1];
+  Mref = 1/4 * [l1 l2 l2 l2; 
+                l2 l1 l2 l2; 
+                l2 l2 l1 l2; 
+                l2 l2 l2 l1];
+
   area = reshape (mesh.area, 1, 1, nelem);
   
   ## Computation

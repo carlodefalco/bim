@@ -41,11 +41,13 @@ function [M] = bim3a_boundary_mass (mesh, facelist, nodelist)
   ## Check input
   if (nargin > 3)
     error ("bim3a_boundary_mass: wrong number of input parameters.");
-  elseif (!((isstruct (mesh)) && (isfield (mesh,"p")) && (isfield (mesh,"t")) && 
-          isfield(mesh,"e")))
-    error ("bim3a_boundary_mass: first input is not a valid mesh structure.");
-  elseif (!( (isvector (facelist)) && (isnumeric (facelist)) ) )
-    error ("bim3a_boundary_mass: second input is not a valid numeric vector.");
+  elseif (! ((isstruct (mesh)) && (isfield (mesh, "p")) 
+             && (isfield (mesh, "t")) && isfield(mesh, "e")))
+    error (["bim3a_boundary_mass: first input", ...
+            " is not a valid mesh structure."]);
+  elseif (! ((isvector (facelist)) && (isnumeric (facelist))))
+    error (["bim3a_boundary_mass: second ", ...
+            "input is not a valid numeric vector."]);
   endif
 
   if (nargin < 3)
@@ -58,12 +60,14 @@ function [M] = bim3a_boundary_mass (mesh, facelist, nodelist)
     t = [t,  mesh.e([1:3 10], mesh.e(10,:) == ie)];
   endfor
 
-  area = 1/2 * norm (cross (p(:,t(2,:))-p(:,t(1,:)), p(:,t(3,:))-p(:,t(1,:)) ), 2, 'columns');
+  area = 1/2 * norm (cross (p(:,t(2,:))-p(:,t(1,:)), 
+                            p(:,t(3,:))-p(:,t(1,:))), 
+                     2, 'columns');
   
   dd = zeros (size (nodelist));
   
   for in = 1:length (nodelist)
-    dd (in) = 1/3 * sum (area (any (t(1:3,:) == nodelist(in))) );
+    dd (in) = 1/3 * sum (area (any (t(1:3,:) == nodelist(in))));
   endfor
   
   M = sparse (diag (dd));

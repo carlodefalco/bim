@@ -44,7 +44,7 @@ function [norm_u] = bim1c_norm (m, u, norm_type)
   ## Check input  
   if (nargin != 3)
     error ("bim1c_norm: wrong number of input parameters.");
-  elseif (! (isvector (m) ))
+  elseif (! isvector (m))
     error ("bim1c_norm: first input is not a valid mesh.");
   endif
 
@@ -62,8 +62,9 @@ function [norm_u] = bim1c_norm (m, u, norm_type)
     error ("bim1c_norm: numel(u) != nnodes and numel(u) != nel.");
   endif
   
-  if !(strcmp (norm_type,'L2') || strcmp (norm_type,'inf') || 
-       strcmp (norm_type,'H1')) 
+  if (! (strcmp (norm_type, 'L2') 
+         || strcmp (norm_type, 'inf') 
+         || strcmp (norm_type, 'H1')))
     error ("bim1c_norm: invalid norm type parameter.");
   endif
 
@@ -84,7 +85,8 @@ function [norm_u] = bim1c_norm (m, u, norm_type)
     else
 
       if (strcmp (norm_type, 'H1'))
-        error ("bim1c_norm: cannot compute the H1 norm of an elementwise constant function.");
+        error (["bim1c_norm: cannot compute the ", ...
+                "H1 norm of an elementwise constant function."]);
       endif
       
       norm_u = diff(m)' * u.^2;      

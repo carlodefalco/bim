@@ -48,7 +48,8 @@ function [u_nod, m_el] = bim1c_elem_to_nodes (m, u_el)
     elseif (ismatrix (m))
       m_el = m;
     else
-      error ("bim1c_elem_to_nodes: first input parameter is of incorrect type");
+      error (["bim1c_elem_to_nodes: first input ", ...
+              "parameter is of incorrect type"]);
     endif
     u_nod = m_el * u_el;
   else
@@ -59,7 +60,8 @@ function [u_nod, m_el] = bim1c_elem_to_nodes (m, u_el)
     elseif (ismatrix (m))
       u_nod = m * u_el;
     else
-      error ("bim1c_elem_to_nodes: first input parameter is of incorrect type");
+      error (["bim1c_elem_to_nodes: first input ", ...
+              "parameter is of incorrect type"]);
     endif      
   endif
 
