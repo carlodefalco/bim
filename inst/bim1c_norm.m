@@ -36,7 +36,7 @@
 ## computed and the function will return an error message.
 ##
 ## @seealso{bim2c_norm, bim3c_norm}
-
+##
 ## @end deftypefn
 
 function [norm_u] = bim1c_norm (m, u, norm_type)

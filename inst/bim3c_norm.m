@@ -40,7 +40,7 @@
 ## formulas, CMAME 55: 339-348 1986).
 ##
 ## @seealso{bim1c_norm, bim2c_norm}
-
+##
 ## @end deftypefn
 
 function [norm_u] = bim3c_norm (m, u, norm_type)

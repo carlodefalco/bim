@@ -39,7 +39,7 @@
 ## quadrature rule is used.
 ##
 ## @seealso{bim1c_norm, bim3c_norm}
-
+##
 ## @end deftypefn
 
 function [norm_u] = bim2c_norm (m, u, norm_type)
