@@ -32,12 +32,12 @@ function   Lloc = __osc_local_laplacian__ (p, t, shg, epsilon, area, nnodes, nel
 
   Lloc = zeros (4, 4, nelem);
 
-  epsilonbyareak = epsilon(:) ./  area(:) / 48;
+  epsilonbyareak = epsilon(:) ./  abs (area(:)) / 48;
   A = zeros (3, 4, nelem);
 
   ## Computation
   for inode = 1:4
-    A(:, inode, :) = 3 * area .* squeeze (shg(:, inode, :));
+    A(:, inode, :) = 3 * abs (area) .* squeeze (shg (:, inode, :));
   endfor
   Ann = squeeze (sum (A .^ 2, 1));
 
@@ -48,14 +48,14 @@ function   Lloc = __osc_local_laplacian__ (p, t, shg, epsilon, area, nnodes, nel
   r24 = p(:, t (4, :)) - p(:, t (2, :));
   r34 = p(:, t (4, :)) - p(:, t (3, :));
   
-  s12 = - epsilonbyareak .* (2 * (dot ( r13,  r23,  1) .* 
-                                  dot ( r14,  r24,  1))(:) + 
+  s12 = - epsilonbyareak .* (2 * (dot (r13,  r23,  1) .* 
+                                  dot (r14,  r24,  1))(:) + 
                              squeeze (dot (A(:, 3, :), A(:, 4, :), 1)) .* 
                              (dot ( r13,  r23,  1) .^ 2 ./ Ann(4, :) + 
                               dot ( r14,  r24,  1).^ 2 ./ Ann(3, :))(:));
 
-  s13 = - epsilonbyareak .* (2 * (dot ( r12, -r23,  1) .* 
-                                  dot ( r14,  r34,  1))(:) + 
+  s13 = - epsilonbyareak .* (2 * (dot (r12, -r23,  1) .* 
+                                  dot (r14,  r34,  1))(:) + 
                              squeeze (dot (A(:, 2, :), A(:, 4, :), 1)) .* 
                              (dot ( r12, -r23, 1) .^ 2  ./ Ann(4, :) + 
                               dot ( r14,  r34,  1).^ 2 ./ Ann(2, :))(:));
