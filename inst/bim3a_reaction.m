@@ -46,8 +46,8 @@ function [C] = bim3a_reaction (mesh,delta,zeta);
     error("bim3a_reaction: first input is not a valid mesh structure.");
   endif
 
-  nnodes    = length(mesh.p);
-  nelem     = length(mesh.t);
+  nnodes    = columns (mesh.p);
+  nelem     = columns (mesh.t);
 
   ## Turn scalar input to a vector of appropriate size
   if isscalar(delta)
