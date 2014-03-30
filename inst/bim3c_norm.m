@@ -60,7 +60,7 @@ function [norm_u] = bim3c_norm (m, u, norm_type)
     u = u';
   endif
   
-  if ((length (u) != nnodes) && (rows (u) != nel))
+  if ((numel (u) != nnodes) && (rows (u) != nel))
     error ("bim3c_norm: length(u) != nnodes and rows(u) != nel.");
   endif
   
@@ -73,7 +73,7 @@ function [norm_u] = bim3c_norm (m, u, norm_type)
   if (strcmp (norm_type,'inf'))  
     norm_u = max (abs (u(:)));
   else
-    if (length (u) == nnodes)
+    if (numel (u) == nnodes)
 
       M = __mass_matrix__ (m);
       

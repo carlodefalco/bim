@@ -61,7 +61,7 @@ function [M] = bim2a_boundary_mass(mesh,sidelist,nodelist)
   
   dd = zeros(size(nodelist));
   
-  for in = 1:length(nodelist)
+  for in = 1:numel (nodelist)
     dd (in) = (sum(l(edges(1,:)==nodelist(in)))+sum(l(edges(2,:)==nodelist(in))))/2;
   endfor
   

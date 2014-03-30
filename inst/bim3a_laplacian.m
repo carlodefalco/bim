@@ -61,9 +61,9 @@ function [A] = bim3a_laplacian (mesh,epsilon,kappa)
 
   if !( isvector(epsilon) && isvector(kappa) )
     error("bim3a_laplacian: coefficients are not valid vectors.");
-  elseif length(epsilon) != nelem
+  elseif (numel (epsilon) != nelem)
     error("bim3a_laplacian: length of epsilon is not equal to the number of elements.");
-  elseif length(kappa) != nnodes
+  elseif (numel (kappa) != nnodes)
     error("bim2a_laplacian: length of kappa is not equal to the number of nodes.");
   endif
 

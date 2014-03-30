@@ -47,7 +47,7 @@ function b = bim1a_rhs(mesh,f,g)
   endif
 
   mesh   = reshape(mesh,[],1);
-  nnodes = length(mesh);
+  nnodes = numel (mesh);
   nelem  = nnodes-1;
 
   ## Turn scalar input to a vector of appropriate size
@@ -60,9 +60,9 @@ function b = bim1a_rhs(mesh,f,g)
 
   if !( isvector(f) && isvector(g) )
     error("bim1a_rhs: coefficients are not valid vectors.");
-  elseif (length(f) != nelem && length(f) != 1)
+  elseif (numel (f) != nelem && numel (f) != 1)
     error("bim1a_rhs: length of f is not equal to the number of elements.");
-  elseif (length(g) != nnodes && length(g) != 1)
+  elseif (numel (g) != nnodes && numel (g) != 1)
     error("bim1a_rhs: length of g is not equal to the number of nodes.");
   endif
 

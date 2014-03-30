@@ -61,13 +61,13 @@ function [jx, jy] = bim2c_global_flux(mesh,u,alpha,gamma,eta,beta)
 
   if !( isvector(u) && isvector(alpha) && isvector(gamma) && isvector(eta) )
     error("bim2c_global_flux: coefficients are not valid vectors.");
-  elseif length(u) != nnodes
+  elseif (numel (u) != nnodes)
     error("bim2c_global_flux: length of u is not equal to the number of nodes.");
-  elseif length(alpha) != nelem
+  elseif (numel (alpha) != nelem)
     error("bim2c_global_flux: length of alpha is not equal to the number of elements.");
-  elseif length(gamma) != nnodes
+  elseif (numel (gamma) != nnodes)
     error("bim2c_global_flux: length of gamma is not equal to the number of nodes.");
-  elseif length(eta) != nnodes
+  elseif (numel (eta) != nnodes)
     error("bim2c_global_flux: length of eta is not equal to the number of nodes.");
   endif
 

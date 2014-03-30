@@ -60,9 +60,9 @@ function b = bim2a_rhs(mesh,f,g)
 
   if !( isvector(f) && isvector(g) )
     error("bim2a_rhs: coefficients are not valid vectors.");
-  elseif length(f) != nelem
+  elseif (numel (f) != nelem)
     error("bim2a_rhs: length of f is not equal to the number of elements.");
-  elseif length(g) != nnodes
+  elseif (numel (g) != nnodes)
     error("bim2a_rhs: length of g is not equal to the number of nodes.");
   endif
 

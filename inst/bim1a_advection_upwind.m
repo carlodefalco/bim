@@ -49,16 +49,16 @@ function A = bim1a_advection_upwind (x, beta)
     error("bim1a_advection_upwind: wrong number of input parameters.");
   endif
   
-  nnodes = length(x);
+  nnodes = numel (x);
   nelem  = nnodes-1;
 
   areak = reshape(diff(x),[],1);
  
-  if (length(beta) == 1)
+  if (numel (beta) == 1)
     vk = 0;
-  elseif (length(beta) == nelem)
+  elseif (numel (beta) == nelem)
     vk = beta .* areak; 
-  elseif (length(beta) == nnodes)
+  elseif (numel (beta) == nnodes)
     vk = diff(beta);
   else
     error("bim1a_advection_upwind: coefficient beta has wrong dimensions.");

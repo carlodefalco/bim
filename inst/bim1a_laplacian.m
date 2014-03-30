@@ -48,7 +48,7 @@ function [A] = bim1a_laplacian(mesh,epsilon,kappa)
   endif
 
   ## Input-type check inside bim1a_advection_diffusion
-  nnodes = length(mesh);
+  nnodes = numel (mesh);
   nelem  = nnodes - 1;
   
   A = bim1a_advection_diffusion (mesh, epsilon, kappa, ones(nnodes,1), 0);

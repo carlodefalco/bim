@@ -46,9 +46,9 @@ function [C] = bim1a_reaction(mesh,delta,zeta)
     error("bim1a_reaction: first argument is not a valid vector.");
   endif
 
-  mesh    = reshape(mesh,[],1);
-  nnodes  = length(mesh);
-  nelems  = nnodes-1;
+  mesh    = reshape (mesh, [], 1);
+  nnodes  = numel (mesh);
+  nelems  = nnodes - 1;
 
   ## Turn scalar input to a vector of appropriate size
   if isscalar(delta)
@@ -60,9 +60,9 @@ function [C] = bim1a_reaction(mesh,delta,zeta)
 
   if !( isvector(delta) && isvector(zeta) )
     error("bim1a_reaction: coefficients are not valid vectors.");
-  elseif length(delta) != nelems
+  elseif numel (delta) != nelems
     error("bim1a_reaction: length of delta is not equal to the number of elements.");
-  elseif length(zeta)  != nnodes
+  elseif numel (zeta)  != nnodes
     error("bim1a_reaction: length of zeta is not equal to the number of nodes.");
   endif
 

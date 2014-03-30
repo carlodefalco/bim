@@ -48,7 +48,7 @@ function [b] = bim3a_rhs (mesh,f,g);
   endif
 
   nnodes    = columns (mesh.p);
-  nelem     = length (mesh.t);
+  nelem     = columns (mesh.t);
 
   ## Turn scalar input to a vector of appropriate size
   if isscalar(f)
@@ -60,9 +60,9 @@ function [b] = bim3a_rhs (mesh,f,g);
 
   if !( isvector(f) && isvector(g) )
     error("bim3a_rhs: coefficients are not valid vectors.");
-  elseif length(f) != nelem
+  elseif (numel (f) != nelem)
     error("bim3a_rhs: length of f is not equal to the number of elements.");
-  elseif length(g) != nnodes
+  elseif (numel (g) != nnodes)
     error("bim3a_rhs: length of g is not equal to the number of nodes.");
   endif
 

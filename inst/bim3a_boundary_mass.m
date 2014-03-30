@@ -66,7 +66,7 @@ function [M] = bim3a_boundary_mass (mesh, facelist, nodelist)
   
   dd = zeros (size (nodelist));
   
-  for in = 1:length (nodelist)
+  for in = 1:numel (nodelist)
     dd (in) = 1/3 * sum (area (any (t(1:3,:) == nodelist(in))));
   endfor
   

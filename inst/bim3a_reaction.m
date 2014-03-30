@@ -59,9 +59,9 @@ function [C] = bim3a_reaction (mesh,delta,zeta);
 
   if !( isvector(delta) && isvector(zeta) )
     error("bim3a_reaction: coefficients are not valid vectors.");
-  elseif length(delta) != nelem
+  elseif (numel (delta) != nelem)
     error("bim3a_: length of alpha is not equal to the number of elements.");
-  elseif length(zeta) != nnodes
+  elseif (numel (zeta) != nnodes)
     error("bim3a_: length of gamma is not equal to the number of nodes.");
   endif
 

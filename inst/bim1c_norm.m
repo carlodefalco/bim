@@ -71,7 +71,7 @@ function [norm_u] = bim1c_norm (m, u, norm_type)
   if (strcmp (norm_type,'inf'))  
     norm_u = max (abs (u));
   else
-    if (length (u) == nnodes)
+    if (numel (u) == nnodes)
 
       M = __mass_matrix__ (m);
       

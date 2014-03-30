@@ -42,7 +42,7 @@ function [gx, gy, gz] = bim3c_pde_gradient (mesh, u)
 
   nnodes = columns (mesh.p);
 
-  if (length (u) != nnodes)
+  if (numel (u) != nnodes)
     error ("bim3c_pde_gradient: length(u) != nnodes.");
   endif
 

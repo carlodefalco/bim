@@ -60,8 +60,8 @@ function [norm_u] = bim2c_norm (m, u, norm_type)
     u = u';
   endif
   
-  if ((length (u) != nnodes) && (rows (u) != nel))
-    error ("bim2c_norm: length(u) != nnodes and rows(u) != nel.");
+  if ((numel (u) != nnodes) && (rows (u) != nel))
+    error ("bim2c_norm: numel(u) != nnodes and rows(u) != nel.");
   endif
   
   if (! (strcmp (norm_type,'L2') 
@@ -73,7 +73,7 @@ function [norm_u] = bim2c_norm (m, u, norm_type)
   if (strcmp (norm_type,'inf'))  
     norm_u = max (abs (u(:)));
   else
-    if (length (u) == nnodes)
+    if (numel (u) == nnodes)
 
       M = __mass_matrix__ (m);
       
