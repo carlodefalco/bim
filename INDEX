@@ -2,21 +2,32 @@ BIM >> BIM - Diffusion Advection Reaction PDE Solver
 Matrix assembly
   bim1a_advection_diffusion
   bim1a_advection_upwind
+  bim1a_axisymmetric_advection_diffusion
+  bim1a_axisymmetric_advection_upwind
   bim2a_advection_diffusion
   bim2a_advection_upwind
+  bim2a_axisymmetric_advection_diffusion
+  bim2a_axisymmetric_advection_upwind
   bim3a_advection_diffusion
   bim3a_osc_advection_diffusion
   bim1a_laplacian
+  bim1a_axisymmetric_laplacian
   bim2a_laplacian
+  bim2a_axisymmetric_laplacian
   bim3a_laplacian
   bim3a_osc_laplacian
   bim1a_reaction
+  bim1a_axisymmetric_reaction
   bim2a_reaction
+  bim2a_axisymmetric_reaction
   bim3a_reaction
   bim1a_rhs
+  bim1a_axisymmetric_rhs
   bim2a_rhs
+  bim2a_axisymmetric_rhs
   bim3a_rhs
   bim2a_boundary_mass
+  bim2a_axisymmetric_boundary_mass
   bim3a_boundary_mass
 Pre-processing and Post-processing computations
   bim2c_mesh_properties
