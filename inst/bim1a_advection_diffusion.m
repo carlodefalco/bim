@@ -49,54 +49,54 @@
 function A = bim1a_advection_diffusion (x,alpha,gamma,eta,beta)
 
   ## Check input
-  if nargin != 5
-    error("bim1a_advection_diffusion: wrong number of input parameters.");
-  elseif !isvector(x)
-    error("bim1a_advection_diffusion: first argument is not a valid vector.");
+  if (nargin != 5)
+    error ("bim1a_advection_diffusion: wrong number of input parameters.");
+  elseif (! isvector (x))
+    error ("bim1a_advection_diffusion: first argument is not a valid vector.");
   endif
   
-  nnodes = length(x);
-  nelem  = nnodes-1;
+  nnodes = numel (x);
+  nelem  = nnodes - 1;
 
   ## Turn scalar input to a vector of appropriate size
-  if isscalar(alpha)
-    alpha = alpha*ones(nelem,1);
+  if (isscalar (alpha))
+    alpha = alpha * ones (nelem, 1);
   endif
-  if isscalar(gamma)
-    gamma = gamma*ones(nnodes,1);
+  if (isscalar (gamma))
+    gamma = gamma * ones (nnodes, 1);
   endif
-  if isscalar(eta)
-    eta = eta*ones(nnodes,1);
+  if (isscalar (eta))
+    eta = eta * ones (nnodes, 1);
   endif
   
-  if !( isvector(alpha) && isvector(gamma) && isvector(eta) )
-    error("bim1a_advection_diffusion: coefficients are not valid vectors.");
-  elseif (length(alpha) != nelem)
-    error("bim1a_advection_diffusion: length of alpha is not equal to the number of elements.");
-  elseif (length(gamma) != nnodes)
-    error("bim1a_advection_diffusion: length of gamma is not equal to the number of nodes.");
-  elseif (length(eta) != nnodes)
-    error("bim1a_advection_diffusion: length of eta is not equal to the number of nodes.");
+  if (! (isvector (alpha) && isvector (gamma) && isvector (eta)))
+    error ("bim1a_advection_diffusion: coefficients are not valid vectors.");
+  elseif (length (alpha) != nelem)
+    error ("bim1a_advection_diffusion: length of alpha is not equal to the number of elements.");
+  elseif (length (gamma) != nnodes)
+    error ("bim1a_advection_diffusion: length of gamma is not equal to the number of nodes.");
+  elseif (length (eta) != nnodes)
+    error ("bim1a_advection_diffusion: length of eta is not equal to the number of nodes.");
   endif
 
-  areak = reshape(diff(x),[],1);
+  areak = reshape (diff (x), [], 1);
  
-  if (length(beta) == 1)
+  if (numel (beta) == 1)
     vk = 0;
-  elseif (length(beta) == nelem)
+  elseif (numel (beta) == nelem)
     vk = beta .* areak;
-  elseif (length(beta) == nnodes)
-    vk = diff(beta);
+  elseif (numel (beta) == nnodes)
+    vk = diff (beta);
   else
-    error("bim1a_advection_diffusion: coefficient beta has wrong dimensions.");
+    error ("bim1a_advection_diffusion: coefficient beta has wrong dimensions.");
   endif
   
-  gammaetak = bimu_logm ( (gamma.*eta)(1:end-1), (gamma.*eta)(2:end));
-  veta      = diff(eta);
-  etak      = bimu_logm ( eta(1:end-1), eta(2:end));
+  gammaetak = bimu_logm ((gamma .* eta)(1:end-1), (gamma .* eta)(2:end));
+  veta      = diff (eta);
+  etak      = bimu_logm (eta(1:end-1), eta(2:end));
   ck        = alpha .* gammaetak .* etak ./ areak; 
 
-  [bpk, bmk]  = bimu_bernoulli( (vk - veta)./etak);
+  [bpk, bmk]  = bimu_bernoulli ((vk - veta) ./ etak);
  
   dm1 = [-(ck.*bmk); NaN]; 
   dp1 = [NaN; -(ck.*bpk)]; 
