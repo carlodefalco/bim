@@ -71,11 +71,11 @@ function A = bim1a_advection_diffusion (x,alpha,gamma,eta,beta)
   
   if (! (isvector (alpha) && isvector (gamma) && isvector (eta)))
     error ("bim1a_advection_diffusion: coefficients are not valid vectors.");
-  elseif (length (alpha) != nelem)
+  elseif (numel (alpha) != nelem)
     error ("bim1a_advection_diffusion: length of alpha is not equal to the number of elements.");
-  elseif (length (gamma) != nnodes)
+  elseif (numel (gamma) != nnodes)
     error ("bim1a_advection_diffusion: length of gamma is not equal to the number of nodes.");
-  elseif (length (eta) != nnodes)
+  elseif (numel (eta) != nnodes)
     error ("bim1a_advection_diffusion: length of eta is not equal to the number of nodes.");
   endif
 
