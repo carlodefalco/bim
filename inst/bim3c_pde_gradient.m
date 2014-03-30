@@ -35,7 +35,7 @@ function [gx, gy, gz] = bim3c_pde_gradient (mesh, u)
   ## Check input  
   if (nargin != 2)
     error("bim3c_pde_gradient: wrong number of input parameters.");
-  elseif (! (isstruct (mesh)     && isfield (mesh,"p")) &&
+  elseif (! (isstruct (mesh) && isfield (mesh,"p")) &&
 	   isfield (mesh, "t") && isfield(mesh, "e"))
     error ("bim3c_pde_gradient: first input is not a valid mesh structure.");
   endif
