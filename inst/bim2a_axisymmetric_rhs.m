@@ -45,7 +45,7 @@ function b = bim2a_axisymmetric_rhs(mesh,f,g)
   ## Check input
   if (nargin != 3)
     error("bim2a_axisymmetric_rhs: wrong number of input parameters.");
-  elseif !(isstruct(mesh)     && isfield(mesh,"p") &&
+  elseif !(isstruct(mesh) && isfield(mesh,"p") &&
 	  isfield (mesh,"t") && isfield(mesh,"e"))
     error("bim2a_axisymmetric_rhs: first input is not a valid mesh structure.");
   elseif !(all(mesh.p(1,:) >= 0) || all(mesh.p(1,:) <= 0))

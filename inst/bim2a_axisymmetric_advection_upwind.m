@@ -67,9 +67,7 @@ function A = bim2a_axisymmetric_advection_upwind (mesh, beta)
   y = mesh.p(2,:);
   y = y(mesh.t(1:3,:));
   
-  rcm = sum (x, 1) / (rows (mesh.t) - 1);
-
-  alphaareak = reshape (mesh.area .* rcm', 1, 1, nelem);
+  alphaareak = reshape (mesh.area, 1, 1, nelem);
   shg        = mesh.shg(:,:,:);
   
   ## Build local Laplacian matrix	
@@ -104,12 +102,16 @@ function A = bim2a_axisymmetric_advection_upwind (mesh, beta)
   [bp23, bm23] = deal (- (v23 - abs (v23))/2, (v23 + abs (v23))/2);
   [bp31, bm31] = deal (- (v31 - abs (v31))/2, (v31 + abs (v31))/2);
   
-  bp12 = reshape(bp12,1,1,nelem).*Lloc(1,2,:);
-  bm12 = reshape(bm12,1,1,nelem).*Lloc(1,2,:);
-  bp23 = reshape(bp23,1,1,nelem).*Lloc(2,3,:);
-  bm23 = reshape(bm23,1,1,nelem).*Lloc(2,3,:);
-  bp31 = reshape(bp31,1,1,nelem).*Lloc(3,1,:);
-  bm31 = reshape(bm31,1,1,nelem).*Lloc(3,1,:);
+  r12 = (x(2,:) + x(1,:)) / 2;
+  r23 = (x(3,:) + x(2,:)) / 2;
+  r31 = (x(1,:) + x(3,:)) / 2;
+
+  bp12 = reshape(r12 .* bp12,1,1,nelem).*Lloc(1,2,:);
+  bm12 = reshape(r12 .* bm12,1,1,nelem).*Lloc(1,2,:);
+  bp23 = reshape(r23 .* bp23,1,1,nelem).*Lloc(2,3,:);
+  bm23 = reshape(r23 .* bm23,1,1,nelem).*Lloc(2,3,:);
+  bp31 = reshape(r31 .* bp31,1,1,nelem).*Lloc(3,1,:);
+  bm31 = reshape(r31 .* bm31,1,1,nelem).*Lloc(3,1,:);
   
   Sloc(1,1,:) = (-bm12-bp31);
   Sloc(1,2,:) = bp12;

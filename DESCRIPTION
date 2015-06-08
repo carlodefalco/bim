@@ -1,10 +1,10 @@
 Name: bim
-Version: 1.1.4
-Date: 2014-03-30
+Version: 1.1.5
+Date: 2014-10-17
 Author: Carlo de Falco, Culpo Massimiliano, Matteo Porro, Emanuela Abbate
 Maintainer: Carlo de Falco
 Title: PDE Solver using a Finite Element/Finite Volume approach
 Description: Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations 
-Depends: octave (>= 3.6.0), fpl, msh 
+Depends: octave (>= 3.8.0), fpl, msh 
 Autoload: no
 License: GPLv2+

@@ -18,9 +18,9 @@
 ##
 ## @deftypefn {Function File} {@var{data}} = bim2c_intrp (@var{msh}, @var{n_data}, @var{e_data}, @var{points}) 
 ##
-## Compute interpolated values of node centered multicomponent node centered field @var{n_data} and 
-## cell centered field @var{n_data} at an arbitrary set of points whos coordinates are given in the 
-## n_by_2 matrix  @var{points}. 
+## Compute interpolated values of multicomponent node centered field @var{n_data} and/or
+## cell centered field @var{n_data} at an arbitrary set of points whose coordinates are given in the 
+## n_by_2 matrix @var{points}. 
 ##
 ## @end deftypefn
 

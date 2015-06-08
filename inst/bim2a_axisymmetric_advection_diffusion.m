@@ -101,14 +101,12 @@ function [A] = bim2a_axisymmetric_advection_diffusion (mesh, alpha, gamma, eta, 
     error("bim2a_axisymmetric_advection_diffusion: length of eta is not equal to the number of nodes.");
   endif
   
-  x = abs( mesh.p(1,:));
+  x = abs(mesh.p(1,:));
   x = x(mesh.t(1:3,:));
   y = mesh.p(2,:);
   y = y(mesh.t(1:3,:));
-
-  rcm = sum (x, 1) / (rows (mesh.t) - 1);
    
-  alphaareak = reshape (alpha.*mesh.area.*rcm',1,1,nelem);
+  alphaareak = reshape (alpha.*mesh.area,1,1,nelem);
   shg        = mesh.shg(:,:,:);
   
   ## Build local Laplacian matrix
@@ -145,6 +143,10 @@ function [A] = bim2a_axisymmetric_advection_diffusion (mesh, alpha, gamma, eta, 
   eta23 = etaloc(3,:) - etaloc(2,:);
   eta31 = etaloc(1,:) - etaloc(3,:);
   
+  r12 = (x(2,:) + x(1,:)) / 2;
+  r23 = (x(3,:) + x(2,:)) / 2;
+  r31 = (x(1,:) + x(3,:)) / 2;
+  
   etalocm1 = bimu_logm(etaloc(2,:),etaloc(3,:));
   etalocm2 = bimu_logm(etaloc(3,:),etaloc(1,:));
   etalocm3 = bimu_logm(etaloc(1,:),etaloc(2,:));
@@ -160,12 +162,12 @@ function [A] = bim2a_axisymmetric_advection_diffusion (mesh, alpha, gamma, eta, 
   [bp23,bm23] = bimu_bernoulli ((v23 - eta23) ./ etalocm1);
   [bp31,bm31] = bimu_bernoulli ((v31 - eta31) ./ etalocm2);
   
-  bp12 = reshape(gelocm3.*etalocm3.*bp12,1,1,nelem).*Lloc(1,2,:);
-  bm12 = reshape(gelocm3.*etalocm3.*bm12,1,1,nelem).*Lloc(1,2,:);
-  bp23 = reshape(gelocm1.*etalocm1.*bp23,1,1,nelem).*Lloc(2,3,:);
-  bm23 = reshape(gelocm1.*etalocm1.*bm23,1,1,nelem).*Lloc(2,3,:);
-  bp31 = reshape(gelocm2.*etalocm2.*bp31,1,1,nelem).*Lloc(3,1,:);
-  bm31 = reshape(gelocm2.*etalocm2.*bm31,1,1,nelem).*Lloc(3,1,:);
+  bp12 = reshape(r12.*gelocm3.*etalocm3.*bp12,1,1,nelem).*Lloc(1,2,:);
+  bm12 = reshape(r12.*gelocm3.*etalocm3.*bm12,1,1,nelem).*Lloc(1,2,:);
+  bp23 = reshape(r23.*gelocm1.*etalocm1.*bp23,1,1,nelem).*Lloc(2,3,:);
+  bm23 = reshape(r23.*gelocm1.*etalocm1.*bm23,1,1,nelem).*Lloc(2,3,:);
+  bp31 = reshape(r31.*gelocm2.*etalocm2.*bp31,1,1,nelem).*Lloc(3,1,:);
+  bm31 = reshape(r31.*gelocm2.*etalocm2.*bm31,1,1,nelem).*Lloc(3,1,:);
   
   Sloc(1,1,:) = (-bm12-bp31)./reshape(etaloc(1,:),1,1,nelem);
   Sloc(1,2,:) = bp12./reshape(etaloc(2,:),1,1,nelem);
@@ -310,11 +312,11 @@ endfunction
 %! f = @(r,z) -D./r.*duexdr(r,z) - D.*d2uexdr2(r,z) ...
 %!           + vr./r .* uex(r,z) + vr * duexdr(r,z) ...
 %!           - D.*d2uexdz2(r,z) + vz * duexdz(r,z);
-%! rhs = bim2a_axisymmetric_rhs(mesh, ones(Nelements,1), f(mesh.p(1,:), mesh.p(2,:)));
+%! rhs = bim2a_axisymmetric_rhs(mesh, ones(Nelements,1), f(abs(mesh.p(1,:)), mesh.p(2,:)));
 %! S   = bim2a_axisymmetric_advection_diffusion(mesh,alpha,gamma,eta,beta);
-%! u   = zeros(Nnodes,1); u(Dnodes) = uex(mesh.p(1,Dnodes), mesh.p(2,Dnodes));
+%! u   = zeros(Nnodes,1); u(Dnodes) = uex(abs(mesh.p(1,Dnodes)), mesh.p(2,Dnodes));
 %! u(Varnodes) = S(Varnodes,Varnodes)\(rhs(Varnodes) - S(Varnodes,Dnodes)*u(Dnodes));
-%! assert(u,uex(mesh.p(1,:), mesh.p(2,:))',1e-7)
+%! assert(u,uex(abs(mesh.p(1,:)), mesh.p(2,:))',1e-7)
 
 %!test
 %! n         = 10;
@@ -335,11 +337,11 @@ endfunction
 %! eta       = ones(Nnodes,1);
 %! beta      = 1/D * 1/2*(mesh.p(1,:)').^2;
 %! f         = @(r,z) 1./r.*(1+r).*(r-D) .* uex(r,z);
-%! rhs = bim2a_axisymmetric_rhs(mesh, ones(Nelements,1), f(mesh.p(1,:), mesh.p(2,:)));
+%! rhs = bim2a_axisymmetric_rhs(mesh, ones(Nelements,1), f(abs(mesh.p(1,:)), mesh.p(2,:)));
 %! S   = bim2a_axisymmetric_advection_diffusion(mesh,alpha,gamma,eta,beta);
-%! u   = zeros(Nnodes,1); u(Dnodes) = uex(mesh.p(1,Dnodes), mesh.p(2,Dnodes));
+%! u   = zeros(Nnodes,1); u(Dnodes) = uex(abs(mesh.p(1,Dnodes)), mesh.p(2,Dnodes));
 %! u(Varnodes) = S(Varnodes,Varnodes)\(rhs(Varnodes) - S(Varnodes,Dnodes)*u(Dnodes));
-%! assert(u,uex(mesh.p(1,:), mesh.p(2,:))',1e-3)
+%! assert(u,uex(abs(mesh.p(1,:)), mesh.p(2,:))',1e-3)
 
 %!test
 %! [mesh] = msh2m_structured_mesh([0:.1:1],[0:.1:1],1,1:4);
