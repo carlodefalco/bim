@@ -72,7 +72,7 @@ function b = bim2a_rhs(mesh,f,g)
   ## Build local matrix	
   Blocmat=zeros(3,nelem);	
   for inode=1:3
-    Blocmat(inode,:) = f'.*g(inode,:).*wjacdet(inode,:);
+    Blocmat(inode,:) = f.' .* g(inode,:) .* wjacdet(inode,:);
   endfor
 
   gnode=(mesh.t(1:3,:));

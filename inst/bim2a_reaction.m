@@ -73,7 +73,7 @@ function [C] = bim2a_reaction(mesh,delta,zeta)
   ## Local matrix	
   Blocmat = zeros(3,nelem);	
   for inode = 1:3
-    Blocmat(inode,:) = coeffe'.*coeff(inode,:).*wjacdet(inode,:);
+    Blocmat(inode,:) = coeffe.'.*coeff(inode,:).*wjacdet(inode,:);
   endfor
   
   gnode = (mesh.t(1:3,:));
