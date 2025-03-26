@@ -56,7 +56,7 @@ function A = bim1a_axisymmetric_advection_upwind (x, beta)
   nnodes = length(x);
   nelem  = nnodes-1;
 
-  cm    = reshape((x(1:end-1)+x(2:end))/2,[],1)
+  cm    = reshape((x(1:end-1)+x(2:end))/2,[],1);
   
   if (length(beta) == 1)
     vk = 0;#zeros(nelem,1);
