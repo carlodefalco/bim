@@ -1,4 +1,5 @@
-## Copyright (C) 2006,2007,2008,2009,2010,2025  Carlo de Falco, Massimiliano Culpo
+## Copyright (C) 2006,2007,2008,2009,2010  Carlo de Falco, Massimiliano Culpo,  Copyright (C) 2025 Carlo de Falco
+## 
 ##
 ## This file is part of:
 ##     BIM - Diffusion Advection Reaction PDE Solver
