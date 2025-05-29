@@ -1,6 +1,6 @@
 Name: bim
-Version: 1.1.6
-Date: 2022-07-22
+Version: 1.1.7
+Date: 2025-05-29
 Author: Carlo de Falco, Culpo Massimiliano, Matteo Porro, Emanuela Abbate
 Maintainer: Carlo de Falco
 Title: PDE Solver using a Finite Element/Finite Volume approach
@@ -9,3 +9,4 @@ Depends: octave (>= 3.8.0), fpl, msh
 Url: https://github.com/carlodefalco/bim
 Autoload: no
 License: GPLv2+
+Tracker: https://github.com/carlodefalco/bim/issues
