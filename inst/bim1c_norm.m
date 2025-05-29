@@ -117,7 +117,7 @@ endfunction
 %! uinf = bim1c_norm (m, u, 'inf');
 %! uL2  = bim1c_norm (m, u, 'L2');
 %! uH1  = bim1c_norm (m, u, 'H1');
-%! assert ([uinf, uL2, uH1], [V, V*sqrt(L), V*sqrt(L)], 1e-12);
+%! assert ([uinf, uL2, uH1], [V, V*sqrt(L), V*sqrt(L)], sqrt(eps));
 %!test
 %! u    = V * m';
 %! uinf = bim1c_norm (m, u, 'inf');
