@@ -5,6 +5,7 @@ Author: Carlo de Falco, Culpo Massimiliano, Matteo Porro, Emanuela Abbate
 Maintainer: Carlo de Falco
 Title: PDE Solver using a Finite Element/Finite Volume approach
 Description: Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations 
-Depends: octave (>= 3.8.0), fpl, msh 
+Depends: octave (>= 3.8.0), fpl, msh
+Url: https://github.com/carlodefalco/bim
 Autoload: no
 License: GPLv2+
