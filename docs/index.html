@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PDE Solver using a Finite Element/Finite Volume approach</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script type="text/javascript">
+      window.addEventListener("load", () => {
+        for (let i of document.querySelectorAll(".collapse ul")) {
+          let tog = document.createElement("div");
+          tog.innerHTML = i.previousSibling.textContent;
+          tog.className = "toggle";
+          tog.onclick = () => tog.classList.toggle("show");
+          i.parentElement.removeChild(i.previousSibling);
+          i.parentElement.insertBefore(tog, i);
+        }
+      });
+    </script>
+    <style>
+    h6:hover {
+      color: gray;
+    }
+    var {
+      font-style: italics;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+    }
+    [id^="togList"],                        /* HIDE CHECKBOX */
+    [id^="togList"] ~ .list,                /* HIDE LIST */
+    [id^="togList"] + label  span + span,   /* HIDE "Collapse" */
+    [id^="togList"]:checked + label span{   /* HIDE "Expand" (IF CHECKED) */
+      display:none;
+    }
+    [id^="togList"]:checked + label span + span{
+      display:inline-block;                 /* SHOW "Collapse" (IF CHECKED) */
+    }
+    [id^="togList"]:checked ~ .list{
+      display:block;                        /* SHOW LIST (IF CHECKED) */
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-dark">
+      <div class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href=https://gnu-octave.github.io/packages/bim>
+              <img src="assets/bim.png" alt="bim" class="d-inline-block align-top" width="25" height="25">
+              PDE Solver using a Finite Element/Finite Volume approach
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="https://gnu-octave.github.io/packages/">
+                  <img src="assets/octave-logo.svg" alt="GNU Octave logo" class="d-inline-block align-top" width="25" height="25">
+                    Octave Packages
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.octave.org">
+                    <i class="fas fa-home"></i>
+                    GNU Octave website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container-xl my-4">
+      <div class="card rounded">
+        <div class="card-header card-header-mod">
+          <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-sm-3 col-md-2 mb-2 mb-sm-0">
+              <img src="assets/bim.png" class="d-block m-auto" alt="bim">
+            </div>
+            <div class="col-sm-9 col-md-10">
+              <h3 class="d-inline-block mr-2">bim</h3>
+              <b>1.1.6&nbsp;2022-07-22</b>
+              <p class="indent">
+                Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+           <p>Select Category:
+             <select name="cat" onchange="location = this.options[this.selectedIndex].value;">
+             <option value="#Matrix assembly">Matrix assembly</option>
+             <option value="#Pre-processing and Post-processing computations">Pre-processing and Post-processing computations</option>
+             <option value="#Utilities">Utilities</option>
+             </select>
+           <p>
+
+           <h3 class="category">
+             <a name="Matrix assembly">Matrix assembly</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_advection_diffusion.html">bim1a_advection_diffusion</a>
+                   </code></b>
+                 </td>
+                 <td>Build the Scharfetter-Gummel stabilized stiffness matrix for a
+diffusion-advection problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_advection_upwind.html">bim1a_advection_upwind</a>
+                   </code></b>
+                 </td>
+                 <td>Build the UW stabilized stiffness matrix for an advection problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_axisymmetric_advection_diffusion.html">bim1a_axisymmetric_advection_diffusion</a>
+                   </code></b>
+                 </td>
+                 <td>Build the Scharfetter-Gummel stabilized stiffness matrix for a
+diffusion-advection problem in cylindrical coordinates with axisymmetric
+configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_axisymmetric_advection_upwind.html">bim1a_axisymmetric_advection_upwind</a>
+                   </code></b>
+                 </td>
+                 <td>Build the Upwind stabilized stiffness matrix for an advection problem in
+cylindrical coordinates with axisymmetric configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_advection_diffusion.html">bim2a_advection_diffusion</a>
+                   </code></b>
+                 </td>
+                 <td>Build the Scharfetter-Gummel stabilized stiffness matrix for a
+diffusion-advection problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_advection_upwind.html">bim2a_advection_upwind</a>
+                   </code></b>
+                 </td>
+                 <td>Build the UW stabilized stiffness matrix for an advection problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_axisymmetric_advection_diffusion.html">bim2a_axisymmetric_advection_diffusion</a>
+                   </code></b>
+                 </td>
+                 <td>Build the Scharfetter-Gummel stabilized stiffness matrix for a
+diffusion-advection problem in cylindrical coordinates with axisymmetric
+configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_axisymmetric_advection_upwind.html">bim2a_axisymmetric_advection_upwind</a>
+                   </code></b>
+                 </td>
+                 <td>Build the Upwind stabilized stiffness matrix for an advection problem in
+cylindrical coordinates with axisymmetric configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3a_advection_diffusion.html">bim3a_advection_diffusion</a>
+                   </code></b>
+                 </td>
+                 <td>Build the Scharfetter-Gummel stabilized stiffness matrix for a
+diffusion-advection problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3a_osc_advection_diffusion.html">bim3a_osc_advection_diffusion</a>
+                   </code></b>
+                 </td>
+                 <td>Build the Scharfetter-Gummel stabilized OSC stiffness matrix for a
+diffusion-advection problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_laplacian.html">bim1a_laplacian</a>
+                   </code></b>
+                 </td>
+                 <td>Build the standard finite element stiffness matrix for a diffusion
+problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_axisymmetric_laplacian.html">bim1a_axisymmetric_laplacian</a>
+                   </code></b>
+                 </td>
+                 <td>Build the standard finite element stiffness matrix for a diffusion
+problem in cylindrical coordinates with axisymmetric configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_laplacian.html">bim2a_laplacian</a>
+                   </code></b>
+                 </td>
+                 <td>Build the standard finite element stiffness matrix for a diffusion
+problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_axisymmetric_laplacian.html">bim2a_axisymmetric_laplacian</a>
+                   </code></b>
+                 </td>
+                 <td>Build the standard finite element stiffness matrix for a diffusion
+problem in cylindrical coordinates with axisymmetric configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3a_laplacian.html">bim3a_laplacian</a>
+                   </code></b>
+                 </td>
+                 <td>Build the standard finite element stiffness matrix for a diffusion
+problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3a_osc_laplacian.html">bim3a_osc_laplacian</a>
+                   </code></b>
+                 </td>
+                 <td>Build the osc finite element stiffness matrix for a diffusion problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_reaction.html">bim1a_reaction</a>
+                   </code></b>
+                 </td>
+                 <td>Build the lumped finite element mass matrix for a diffusion problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_axisymmetric_reaction.html">bim1a_axisymmetric_reaction</a>
+                   </code></b>
+                 </td>
+                 <td>Build the lumped finite element mass matrix for a diffusion problem in
+cylindrical coordinates with axisymmetric configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_reaction.html">bim2a_reaction</a>
+                   </code></b>
+                 </td>
+                 <td>Build the lumped finite element mass matrix for a diffusion problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_axisymmetric_reaction.html">bim2a_axisymmetric_reaction</a>
+                   </code></b>
+                 </td>
+                 <td>Build the lumped finite element mass matrix for a diffusion problem in
+cylindrical coordinates with axisymmetric configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3a_reaction.html">bim3a_reaction</a>
+                   </code></b>
+                 </td>
+                 <td>Build the lumped finite element mass matrix for a diffusion problem.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_rhs.html">bim1a_rhs</a>
+                   </code></b>
+                 </td>
+                 <td>Build the finite element right-hand side of a diffusion problem
+employing mass-lumping.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1a_axisymmetric_rhs.html">bim1a_axisymmetric_rhs</a>
+                   </code></b>
+                 </td>
+                 <td>Build the finite element right-hand side of a diffusion problem
+employing mass-lumping.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_rhs.html">bim2a_rhs</a>
+                   </code></b>
+                 </td>
+                 <td>Build the finite element right-hand side of a diffusion problem
+employing mass-lumping.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_axisymmetric_rhs.html">bim2a_axisymmetric_rhs</a>
+                   </code></b>
+                 </td>
+                 <td>Build the finite element right-hand side of a diffusion problem in
+cylindrical coordinates with axisymmetric configuration employing
+mass-lumping.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3a_rhs.html">bim3a_rhs</a>
+                   </code></b>
+                 </td>
+                 <td>Build the finite element right-hand side of a diffusion problem
+employing mass-lumping.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_boundary_mass.html">bim2a_boundary_mass</a>
+                   </code></b>
+                 </td>
+                 <td>Build the lumped boundary mass matrix needed to apply Robin boundary
+conditions.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2a_axisymmetric_boundary_mass.html">bim2a_axisymmetric_boundary_mass</a>
+                   </code></b>
+                 </td>
+                 <td>Build the lumped boundary mass matrix needed to apply Robin and Neumann
+boundary conditions in a problem in cylindrical coordinates with
+axisymmetric configuration.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3a_boundary_mass.html">bim3a_boundary_mass</a>
+                   </code></b>
+                 </td>
+                 <td>Build the lumped boundary mass matrix needed to apply Robin boundary
+conditions.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Pre-processing and Post-processing computations">Pre-processing and Post-processing computations</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2c_mesh_properties.html">bim2c_mesh_properties</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the properties of IMESH needed by BIM method and append them to
+OMESH as fields.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3c_mesh_properties.html">bim3c_mesh_properties</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the properties of IMESH needed by BIM method and append them to
+OMESH as fields.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2c_unknowns_on_side.html">bim2c_unknowns_on_side</a>
+                   </code></b>
+                 </td>
+                 <td>Return the list of the mesh nodes that lie on the geometrical sides
+specified in SIDELIST.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3c_unknowns_on_faces.html">bim3c_unknowns_on_faces</a>
+                   </code></b>
+                 </td>
+                 <td>Return the list of the mesh nodes that lie on the geometrical faces
+specified in FACELIST.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2c_pde_gradient.html">bim2c_pde_gradient</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the gradient of the piecewise linear conforming scalar function
+U.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3c_pde_gradient.html">bim3c_pde_gradient</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the gradient of the piecewise linear conforming scalar function
+U.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2c_global_flux.html">bim2c_global_flux</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the flux associated with the Scharfetter-Gummel approximation of
+the scalar field U.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3c_global_flux.html">bim3c_global_flux</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the flux associated with the Scharfetter-Gummel approximation of
+the scalar field U.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1c_elem_to_nodes.html">bim1c_elem_to_nodes</a>
+                   </code></b>
+                 </td>
+                 <td>Compute interpolated values at nodes U_NOD given values at element
+mid-points U_EL.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2c_tri_to_nodes.html">bim2c_tri_to_nodes</a>
+                   </code></b>
+                 </td>
+                 <td>Compute interpolated values at triangle nodes U_NOD given values at
+triangle mid-points U_TRI.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3c_tri_to_nodes.html">bim3c_tri_to_nodes</a>
+                   </code></b>
+                 </td>
+                 <td>Compute interpolated values at triangle nodes U_NOD given values at
+tetrahedral centers of mass U_TRI.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2c_intrp.html">bim2c_intrp</a>
+                   </code></b>
+                 </td>
+                 <td>Compute interpolated values of multicomponent node centered field N_DATA
+and/or cell centered field N_DATA at an arbitrary set of points whose
+coordinates are given in the n_by_2 matrix POINTS.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3c_intrp.html">bim3c_intrp</a>
+                   </code></b>
+                 </td>
+                 <td>Compute interpolated values of node centered multicomponent node
+centered field N_DATA and cell centered field N_DATA at an arbitrary set
+of points whos coordinates are given in the n_by_3 matrix POINTS.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim1c_norm.html">bim1c_norm</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the NORM_TYPE-norm of function U on the domain described by the
+triangular grid MESH.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim2c_norm.html">bim2c_norm</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the NORM_TYPE-norm of function U on the domain described by the
+triangular grid MESH.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bim3c_norm.html">bim3c_norm</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the NORM_TYPE-norm of function U on the domain described by the
+tetrahedral grid MESH.</td>
+               </tr>
+             </tbody>
+           </table>
+           <h3 class="category">
+             <a name="Utilities">Utilities</a>
+           </h3>
+           <table class="table table-striped">
+             <tbody>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bimu_bernoulli.html">bimu_bernoulli</a>
+                   </code></b>
+                 </td>
+                 <td>Compute the values of the Bernoulli function corresponding to X and - X
+arguments.</td>
+               </tr>
+               <tr>
+                 <td>
+                   <b><code>
+                   <a href="bimu_logm.html">bimu_logm</a>
+                   </code></b>
+                 </td>
+                 <td>Input:
+   − T1:
+   − T2:</td>
+               </tr>
+             </tbody>
+           </table>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
