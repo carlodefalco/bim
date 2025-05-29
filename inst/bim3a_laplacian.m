@@ -70,7 +70,7 @@ function [A] = bim3a_laplacian (mesh,epsilon,kappa)
   ## Local contributions
   Lloc = zeros(4,4,nelem);
 
-  epsilonareak = reshape (epsilon .* mesh.area',1,1,nelem);
+  kappaepsilonareak = reshape (4./sum (1./kappa(:)(mesh.t (1:4)), 1)(:) .* epsilon(:) .* mesh.area(:), 1, 1, nelem);
   shg = mesh.shg(:,:,:);
   
   ## Computation
@@ -78,7 +78,7 @@ function [A] = bim3a_laplacian (mesh,epsilon,kappa)
     for jnode = 1:4
       ginode(inode,jnode,:) = mesh.t(inode,:);
       gjnode(inode,jnode,:) = mesh.t(jnode,:);
-      Lloc(inode,jnode,:)   = sum( kappa(inode) * shg(:,inode,:) .* shg(:,jnode,:),1) .* epsilonareak;
+      Lloc(inode,jnode,:)   = sum( kappa(inode) * shg(:,inode,:) .* shg(:,jnode,:),1) .* kappaepsilonareak;
     endfor
   endfor
 
